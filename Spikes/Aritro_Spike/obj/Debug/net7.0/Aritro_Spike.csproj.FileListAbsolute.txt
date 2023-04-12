@@ -1,0 +1,15 @@
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\bin\Debug\net7.0\Aritro_Spike.exe
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\bin\Debug\net7.0\Aritro_Spike.deps.json
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\bin\Debug\net7.0\Aritro_Spike.runtimeconfig.json
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\bin\Debug\net7.0\Aritro_Spike.dll
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\bin\Debug\net7.0\Aritro_Spike.pdb
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.csproj.AssemblyReference.cache
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.AssemblyInfoInputs.cache
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.AssemblyInfo.cs
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.csproj.CoreCompileInputs.cache
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.dll
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\refint\Aritro_Spike.dll
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.pdb
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\Aritro_Spike.genruntimeconfig.cache
+C:\Users\aritr.DELL-G7-7500\Desktop\FIT3170\Project\AR-Glasses\Spikes\Aritro_Spike\obj\Debug\net7.0\ref\Aritro_Spike.dll
