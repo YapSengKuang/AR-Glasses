@@ -1,0 +1,15 @@
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/bin/Debug/net7.0/Samir_Spike
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/bin/Debug/net7.0/Samir_Spike.deps.json
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/bin/Debug/net7.0/Samir_Spike.runtimeconfig.json
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/bin/Debug/net7.0/Samir_Spike.dll
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/bin/Debug/net7.0/Samir_Spike.pdb
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.csproj.AssemblyReference.cache
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.GeneratedMSBuildEditorConfig.editorconfig
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.AssemblyInfoInputs.cache
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.AssemblyInfo.cs
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.csproj.CoreCompileInputs.cache
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.dll
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/refint/Samir_Spike.dll
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.pdb
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/Samir_Spike.genruntimeconfig.cache
+/Users/samir/Desktop/coding1/AR-Glasses/Spikes/Samir_Spike/obj/Debug/net7.0/ref/Samir_Spike.dll
