@@ -1,0 +1,15 @@
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\bin\Debug\net7.0\Junhao_Spike.exe
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\bin\Debug\net7.0\Junhao_Spike.deps.json
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\bin\Debug\net7.0\Junhao_Spike.runtimeconfig.json
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\bin\Debug\net7.0\Junhao_Spike.dll
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\bin\Debug\net7.0\Junhao_Spike.pdb
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.csproj.AssemblyReference.cache
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.AssemblyInfoInputs.cache
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.AssemblyInfo.cs
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.csproj.CoreCompileInputs.cache
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.dll
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\refint\Junhao_Spike.dll
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.pdb
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\Junhao_Spike.genruntimeconfig.cache
+C:\Users\Nicholas\Desktop\FIT3170\AR-Glasses\Spikes\Junhao_Spike\obj\Debug\net7.0\ref\Junhao_Spike.dll
