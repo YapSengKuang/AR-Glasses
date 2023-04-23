@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+
 [Serializable]
-public class NewBehaviourScript : MonoBehaviour
+public class Score
 {
     public string name;
     public float score;

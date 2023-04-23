@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    private ScoreData sd;
     // Start is called before the first frame update
     void Start()
     {
-        
+        sd = new ScoreData();
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerable<Score> GetHighScores() 
     {
-        
+        return sd.scores.OrderByDescending(x >= x.score);
+    }
+
+    public void AddScore(Score score)
+    {
+        sd.scores.Add(score);
     }
 }

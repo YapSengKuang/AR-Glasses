@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class ScoreU : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public RowUI rowUi;
+    public ScoreManager scoreManager; 
+
     void Start()
     {
-        
-    }
+        scoreManager.AddScore(new Score("eran", 6));    
+        scoreManager.AddScore(new Score("elongated", 66));
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var scores = scoreManager.GetHighScores().ToArray();
+        for (int i = 0; i < scores.Length; i++) 
+        {
+            var row = Instantiate(rowUi, transform).GetComponent<RowUI();
+            row.rank.text = (i+1).ToString();
+            row.name.text = scores[i].name;
+            row.score.text = scores[i].score.ToString();
+        }
     }
 }
