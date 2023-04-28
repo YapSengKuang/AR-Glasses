@@ -29,6 +29,9 @@ namespace OpenCVForUnityExample
     /// yolov7-tiny https://github.com/AlexeyAB/darknet/releases/download/yolov4/yolov7-tiny.weights, https://raw.githubusercontent.com/AlexeyAB/darknet/0faed3e60e52f742bbef43b83f6be51dd30f373e/cfg/yolov7-tiny.cfg
     /// yolov7 https://github.com/AlexeyAB/darknet/releases/download/yolov4/yolov7.weights, https://raw.githubusercontent.com/AlexeyAB/darknet/0faed3e60e52f742bbef43b83f6be51dd30f373e/cfg/yolov7.cfg
     /// </summary>
+    
+    
+
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class YOLOv7ObjectDetectionExample : MonoBehaviour
     {
@@ -55,6 +58,10 @@ namespace OpenCVForUnityExample
 
         [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
         public int inpHeight = 416;
+
+
+
+        
 
 
         [Header("TEST")]
@@ -416,6 +423,18 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
+
+        
+        private static bool pickMaker(int i){
+            int[] pizzaPasta = {67,73};
+            return Array.Exists(pizzaPasta, element => element == i);
+        }
+
+        /**
+        private void epicChecker{
+            
+        }
+        **/
         
         private class YOLOv7ObjectDetector
         {
@@ -578,34 +597,40 @@ namespace OpenCVForUnityExample
                     results.get(i, 4, conf);
                     float[] cls = new float[1];
                     results.get(i, 5, cls);
-
-                    float left = box[0];
-                    float top = box[1];
-                    float right = box[2];
-                    float bottom = box[3];
                     int classId = (int)cls[0];
 
-                    Scalar c = palette[classId % palette.Count];
-                    Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
+                    
 
-                    Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
+                    if(pickMaker(classId)){
 
-                    string label = String.Format("{0:0.00}", conf[0]);
-                    if (classNames != null && classNames.Count != 0)
-                    {
-                        if (classId < (int)classNames.Count)
+                        float left = box[0];
+                        float top = box[1];
+                        float right = box[2];
+                        float bottom = box[3];
+                        
+
+                        Scalar c = palette[classId % palette.Count];
+                        Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
+
+                        Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
+
+                        string label = String.Format("{0:0.00}", conf[0]);
+                        if (classNames != null && classNames.Count != 0)
                         {
-                            label = classNames[classId] + " " + label;
+                            if (classId < (int)classNames.Count)
+                            {
+                                label = classNames[classId] + " " + label;
+                            }
                         }
+
+                        int[] baseLine = new int[1];
+                        Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+
+                        top = Mathf.Max((float)top, (float)labelSize.height);
+                        Imgproc.rectangle(image, new Point(left, top - labelSize.height),
+                            new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
+                        Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
                     }
-
-                    int[] baseLine = new int[1];
-                    Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
-
-                    top = Mathf.Max((float)top, (float)labelSize.height);
-                    Imgproc.rectangle(image, new Point(left, top - labelSize.height),
-                        new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
-                    Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
                 }
 
                 // Print results
@@ -621,21 +646,22 @@ namespace OpenCVForUnityExample
                         results.get(i, 4, conf);
                         float[] cls = new float[1];
                         results.get(i, 5, cls);
-
-                        int classId = (int)cls[0];
-                        string label = String.Format("{0:0.0000}", conf[0]);
-                        if (classNames != null && classNames.Count != 0)
-                        {
-                            if (classId < (int)classNames.Count)
+                        if(true){
+                            int classId = (int)cls[0];
+                            string label = String.Format("{0:0.0000}", conf[0]);
+                            if (classNames != null && classNames.Count != 0)
                             {
-                                label = classNames[classId] + " " + label;
+                                if (classId < (int)classNames.Count)
+                                {
+                                    label = classNames[classId] + " " + label;
+                                }
                             }
-                        }
 
-                        sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
-                        sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
-                        sb.AppendLine(String.Format("cls: {0:0}", label));
-                        sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                            sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
+                            sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
+                            sb.AppendLine(String.Format("cls: {0:0}", label));
+                            sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                        }
                     }
 
                     Debug.Log(sb);

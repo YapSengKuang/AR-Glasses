@@ -238,7 +238,7 @@ namespace OpenCVForUnityExample
                     {
                         Camera.main.orthographicSize = imageHeight / 2;
                     }
-
+                    
                     Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
                     Texture2D texture = new Texture2D(img.cols(), img.rows(), TextureFormat.RGB24, false);
                     Utils.matToTexture2D(img, texture);
@@ -347,10 +347,12 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
+                    //HERE IT IS
+
                     objectDetector.visualize(rgbaMat, results, false, true);
                 }
 
-                Utils.matToTexture2D(rgbaMat, texture);
+                //Utils.matToTexture2D(rgbaMat, texture);
             }
 
         }
@@ -415,6 +417,11 @@ namespace OpenCVForUnityExample
         public void OnChangeCameraButtonClick()
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
+        }
+
+        public static bool checkClass(int i){
+            int[] phoneBook = {67, 73};
+            return Array.Exists(phoneBook, element=>element==i);
         }
         
         private class YOLOv7ObjectDetector
@@ -551,6 +558,7 @@ namespace OpenCVForUnityExample
                     int w = box_arr[2];
                     int h = box_arr[3];
 
+
                     results.put(i, 0, new float[] { x, y, x + w, y + h, confidence, id });
                 }
 
@@ -579,38 +587,47 @@ namespace OpenCVForUnityExample
                     float[] cls = new float[1];
                     results.get(i, 5, cls);
 
-                    float left = box[0];
-                    float top = box[1];
-                    float right = box[2];
-                    float bottom = box[3];
                     int classId = (int)cls[0];
+                    if (checkClass(classId)){
+                        
+                        float left = box[0];
+                        float top = box[1];
+                        float right = box[2];
+                        float bottom = box[3];
+                        
 
-                    Scalar c = palette[classId % palette.Count];
-                    Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
+                        Scalar c = palette[classId % palette.Count];
 
-                    Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
+                        Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
 
-                    string label = String.Format("{0:0.00}", conf[0]);
-                    if (classNames != null && classNames.Count != 0)
-                    {
-                        if (classId < (int)classNames.Count)
+                        Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
+
+                        string label = String.Format("{0:0.00}", conf[0]);
+                        if (classNames != null && classNames.Count != 0)
                         {
-                            label = classNames[classId] + " " + label;
+                            if (classId < (int)classNames.Count)
+                            {
+                                label = classNames[classId] + " " + label;
+                            }
                         }
+
+                        int[] baseLine = new int[1];
+                        Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+
+                        top = Mathf.Max((float)top, (float)labelSize.height);
+                        Imgproc.rectangle(image, new Point(left, top - labelSize.height),
+                            new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
+                        Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
                     }
 
-                    int[] baseLine = new int[1];
-                    Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-                    top = Mathf.Max((float)top, (float)labelSize.height);
-                    Imgproc.rectangle(image, new Point(left, top - labelSize.height),
-                        new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
-                    Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
+                    
                 }
 
                 // Print results
                 if (print_results)
                 {
+                     
                     StringBuilder sb = new StringBuilder();
 
                     for (int i = 0; i < results.rows(); ++i)
@@ -623,22 +640,26 @@ namespace OpenCVForUnityExample
                         results.get(i, 5, cls);
 
                         int classId = (int)cls[0];
-                        string label = String.Format("{0:0.0000}", conf[0]);
-                        if (classNames != null && classNames.Count != 0)
-                        {
-                            if (classId < (int)classNames.Count)
-                            {
-                                label = classNames[classId] + " " + label;
-                            }
-                        }
 
-                        sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
-                        sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
-                        sb.AppendLine(String.Format("cls: {0:0}", label));
-                        sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                        if(checkClass(classId)){
+                            string label = String.Format("{0:0.0000}", conf[0]);
+                            if (classNames != null && classNames.Count != 0)
+                            {
+                                if (classId < (int)classNames.Count)
+                                {
+                                    label = classNames[classId] + " " + label;
+                                }
+                            }
+
+                            sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
+                            sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
+                            sb.AppendLine(String.Format("cls: {0:0}", label));
+                            sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                        }
                     }
 
                     Debug.Log(sb);
+                    
                 }
             }
 
@@ -666,6 +687,7 @@ namespace OpenCVForUnityExample
 
             protected virtual List<string> readClassNames(string filename)
             {
+            
                 List<string> classNames = new List<string>();
 
                 System.IO.StreamReader cReader = null;
@@ -706,6 +728,7 @@ namespace OpenCVForUnityExample
         // The YOLOv7 with NMS ONNX model does not work with OpenCV 4.7.0.
         // OpenCV fails to import ONNX model: error: (-215:Assertion failed) !isDynamicShape in function 'cv::dnn::dnn4_v20220524::ONNXImporter::parseShape' #22099
         // https://github.com/opencv/opencv/issues/22099
+        /**
         private class YOLOv7ONNXObjectDetector
         {
             Size input_size;
@@ -1160,6 +1183,8 @@ namespace OpenCVForUnityExample
                 return classNames;
             }
         }
+        **/
+    
     }
 }
 #endif

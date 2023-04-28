@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/NRSDK/Demos/Video.unity
     guid: ed898fbf638bf4515b6a0da5e3a6f33b
+  - enabled: 1
+    path: Assets/Scenes/Object Detection/YOLOv7ObjectDetectionExample.unity
+    guid: a7e1999031b3dbe43a4bbb0c0b440ee3
   m_configObjects: {}
