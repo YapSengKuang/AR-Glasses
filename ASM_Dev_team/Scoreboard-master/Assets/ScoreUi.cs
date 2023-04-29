@@ -28,6 +28,8 @@ public class ScoreUi : MonoBehaviour
 
     void Start()
     {
+        textAssetData = Resources.Load<TextAsset>("data");
+
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
         int tablesize = data.Length / 3 - 1;
@@ -39,8 +41,6 @@ public class ScoreUi : MonoBehaviour
             myCountryList.country[i].rank = int.Parse(data[3 * (i + 1)]);
             myCountryList.country[i].name = data[3 * (i + 1) + 1];
             myCountryList.country[i].score = int.Parse(data[3 * (i + 1) + 2]);
-
-
         }
 
         for (int i = 0; i < tablesize; i++)
@@ -58,9 +58,5 @@ public class ScoreUi : MonoBehaviour
             row.score.text = scores[i].score.ToString();
         }
     }
-
-   
-
-
 }
 
