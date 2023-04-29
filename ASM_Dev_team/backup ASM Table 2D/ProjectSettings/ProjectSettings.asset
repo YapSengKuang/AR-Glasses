@@ -5,6 +5,7 @@ PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
   productGUID: 4461e008c1516bf4d893cd347ed17012
+  productGUID: d47c502c320b41343bfd339af16e4cbc
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -150,6 +151,7 @@ PlayerSettings:
   D3DHDRBitDepth: 0
   m_ColorGamuts: 00000000
   targetPixelDensity: 30
+  targetPixelDensity: 0
   resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
@@ -159,6 +161,7 @@ PlayerSettings:
     Standalone: 0
     iPhone: 0
     tvOS: 0
+  buildNumber: {}
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
@@ -180,6 +183,10 @@ PlayerSettings:
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 12.0
+  iOSTargetOSVersionString: 
+  tvOSSdkVersion: 0
+  tvOSRequireExtendedGameController: 0
+  tvOSTargetOSVersionString: 
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
   uIRequiresFullScreen: 1
@@ -362,6 +369,7 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
+  m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching: []
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs: []
