@@ -48,10 +48,11 @@ public class ScoreUi : MonoBehaviour
         // Populate the Country array in the CountryList with the score data.
         for (int i = 0; i < tablesize; i++)
         {
+            int arrayIndex = 3 * (i + 1);
             myCountryList.country[i] = new Country();
-            myCountryList.country[i].rank = int.Parse(data[3 * (i + 1)]);
-            myCountryList.country[i].name = data[3 * (i + 1) + 1];
-            myCountryList.country[i].score = int.Parse(data[3 * (i + 1) + 2]);
+            myCountryList.country[i].rank = int.Parse(data[arrayIndex]);
+            myCountryList.country[i].name = data[arrayIndex + 1];
+            myCountryList.country[i].score = int.Parse(data[arrayIndex + 2]);
         }
 
         // Add the score data to the ScoreManager.
