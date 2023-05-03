@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 164fc37d04678f140a3e56d10b629701, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d241e422e39c9974a82b506b50a53aa6, type: 2}
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -228,9 +228,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnPauseButtonClick
         m_Mode: 1
         m_Arguments:
@@ -886,9 +885,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+          EnoxSoftware.OpenCVForUnity
         m_MethodName: OnBackButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1042,10 +1041,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
-        m_MethodName: OnStopButtonClick
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnChangeCameraButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1266,9 +1264,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnChangeCameraButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1561,9 +1558,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnPlayButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1645,8 +1641,8 @@ GameObject:
   - component: {fileID: 1709852084}
   - component: {fileID: 1709852083}
   - component: {fileID: 1709852082}
-  - component: {fileID: 1709852090}
-  - component: {fileID: 1709852089}
+  - component: {fileID: 1709852086}
+  - component: {fileID: 1709852087}
   - component: {fileID: 1709852088}
   m_Layer: 0
   m_Name: Quad
@@ -1734,46 +1730,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1709852088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709852081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ffc138d8c85b946b9bae82bf2c68c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alignment: 1
-  offset: {x: 10, y: 10}
-  boxVisible: 1
-  boxWidth: 200
-  boxHeight: 110
-  padding: {x: 8, y: 5}
-  consoleHeight: 50
---- !u!114 &1709852089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709852081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f3a52f39e7ceb47a8d7064fc4668f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: yolov7-tiny.weights
-  config: yolov7-tiny.cfg
-  classes: coco.names
-  confThreshold: 0.25
-  nmsThreshold: 0.45
-  inpWidth: 416
-  inpHeight: 416
-  testInputImage: 
---- !u!114 &1709852090
+--- !u!114 &1709852086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1798,9 +1755,8 @@ MonoBehaviour:
   onInitialized:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnWebCamTextureToMatHelperInitialized
         m_Mode: 1
         m_Arguments:
@@ -1814,9 +1770,8 @@ MonoBehaviour:
   onDisposed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnWebCamTextureToMatHelperDisposed
         m_Mode: 1
         m_Arguments:
@@ -1830,9 +1785,8 @@ MonoBehaviour:
   onErrorOccurred:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
-        m_TargetAssemblyTypeName: OpenCVForUnityExample.YOLOv7ObjectDetectionExample,
-          Assembly-CSharp
+      - m_Target: {fileID: 1709852087}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnWebCamTextureToMatHelperErrorOccurred
         m_Mode: 0
         m_Arguments:
@@ -1844,3 +1798,42 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   avoidAndroidFrontCameraLowLightIssue: 0
+--- !u!114 &1709852087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709852081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787ab3c637d2b4a48959e90deb767fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: yolov7-tiny.weights
+  config: yolov7-tiny.cfg
+  classes: coco.names
+  confThreshold: 0.25
+  nmsThreshold: 0.45
+  inpWidth: 416
+  inpHeight: 416
+  testInputImage: 
+--- !u!114 &1709852088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709852081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ffc138d8c85b946b9bae82bf2c68c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alignment: 1
+  offset: {x: 10, y: 10}
+  boxVisible: 1
+  boxWidth: 200
+  boxHeight: 110
+  padding: {x: 8, y: 5}
+  consoleHeight: 50

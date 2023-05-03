@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709852081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b267043c7498e3498dbd64608225c98, type: 3}
+  m_Script: {fileID: 11500000, guid: b218d8b32132ab04c8ba7194c0ae263a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: yolov7-tiny.weights
