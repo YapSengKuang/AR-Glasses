@@ -111,17 +111,17 @@ namespace OpenCVForUnityExample
 #else
             if (!string.IsNullOrEmpty(classes))
             {
-                classes_filepath = Utils.getFilePath("OpenCVForUnity/dnn" + classes);
+                classes_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + classes);
                 if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(config))
             {
-                config_filepath = Utils.getFilePath("OpenCVForUnity/dnn" + config);
+                config_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + config);
                 if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(model))
             {
-                model_filepath = Utils.getFilePath("OpenCVForUnity/dnn" + model);
+                model_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + model);
                 if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
@@ -352,7 +352,7 @@ namespace OpenCVForUnityExample
                     objectDetector.visualize(rgbaMat, results, false, true);
                 }
 
-                //Utils.matToTexture2D(rgbaMat, texture);
+                Utils.matToTexture2D(rgbaMat, texture);
             }
 
         }
@@ -421,7 +421,8 @@ namespace OpenCVForUnityExample
 
         public static bool checkClass(int i){
             int[] phoneBook = {67, 73};
-            return Array.Exists(phoneBook, element=>element==i);
+            return true;
+            //return Array.Exists(phoneBook, element=>element==i);
         }
         
         private class YOLOv7ObjectDetector
