@@ -17,7 +17,7 @@ using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
 
 
-namespace OpenCVForUnityExample {
+namespace NrealLightWithOpenCVForUnityExample {
 public class YOLOv7ObjectDetector
         {
             Size input_size;

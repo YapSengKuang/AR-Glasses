@@ -15,7 +15,11 @@ sysinfo.txt
 *.so.meta
 *.log
 
+/Unity\ Project/Logs/
 
+
+*.cache
+*.editorconfig
 ###
 # VS/MD solution and project files
 ###
