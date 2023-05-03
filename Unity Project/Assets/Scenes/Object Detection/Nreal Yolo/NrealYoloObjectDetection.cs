@@ -6,17 +6,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
 using NrealLightWithOpenCVForUnity.UnityUtils.Helper;
 using NRKernal;
-
 using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
 
@@ -37,7 +38,7 @@ namespace NrealLightWithOpenCVForUnityExample
         public string model = "yolov7-tiny.weights";
 
         [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
-        public string model = "yolov7-tiny.weights";
+        public string config = "yolov7-tiny.cfg";
 
         [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
         public string classes = "coco.names";
@@ -206,7 +207,7 @@ namespace NrealLightWithOpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode(true);
 
-            if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath)))
+            if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
             {
                 Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded.");
             }
@@ -217,10 +218,14 @@ namespace NrealLightWithOpenCVForUnityExample
 
             if (string.IsNullOrEmpty(testInputImage))
             {
+
+                /** don't think this would be included with the nreal cam texture
 #if UNITY_ANDROID && !UNITY_EDITOR
                 // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
                 webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
 #endif
+**/
+                webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
                 webCamTextureToMatHelper.Initialize();
             }
             else
@@ -357,9 +362,9 @@ namespace NrealLightWithOpenCVForUnityExample
                     Mat results = objectDetector.infer(bgrMat);
                     //tm.stop();
                     //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
-                    Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                    Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGBA);
                     //HERE IT IS
-                    objectDetector.visualize(rgbaMat, results, false, true);
+                    objectDetector.visualize(rgbMat, results, false, true);
                 }
                 //Utils.matToTexture2D(rgbaMat, texture);
             }
@@ -437,7 +442,7 @@ namespace NrealLightWithOpenCVForUnityExample
             imageOptimizationHelper.Dispose();
 
             if (objectDetector != null)
-                objectDetector.Dispose();
+                objectDetector.dispose();
 
             Utils.setDebugMode(false);
 
