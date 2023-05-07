@@ -23,6 +23,7 @@ using OpenCVRange = OpenCVForUnity.CoreModule.Range;
 
 namespace NrealLightWithOpenCVForUnityExample
 {
+    
     /// <summary>
     /// Nreal Yolo ObjectDetection
     /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/object_detection.cpp.
@@ -487,8 +488,13 @@ namespace NrealLightWithOpenCVForUnityExample
             //return Array.Exists(phoneBook, element=>element==i);
             return true; 
         }
+
+        public static string getQuant(int i){
+            return "Quant: X"+i.ToString();
+        }
         
     }
+    
 }
 #endif
 
