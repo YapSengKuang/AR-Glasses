@@ -189,7 +189,7 @@ public class YOLOv7ObjectDetector
 
                     int classId = (int)cls[0];
 
-                    if(checkClass(classId) &&!alreadyDrawn[classId] ){
+                    if(NrealYoloObjectDetection.checkClass(classId) &&!alreadyDrawn[classId] ){
                         alreadyDrawn[classId]=true;
                         
                         float left = box[0];
