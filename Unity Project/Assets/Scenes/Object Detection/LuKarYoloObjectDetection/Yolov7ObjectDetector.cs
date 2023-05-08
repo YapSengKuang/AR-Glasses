@@ -15,11 +15,13 @@ using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
 using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
-
+using NrealLightWithOpenCVForUnityExample;
 
 namespace NrealLightWithOpenCVForUnityExample {
 public class YOLOv7ObjectDetector
         {
+            
+
             Size input_size;
             float conf_threshold;
             float nms_threshold;
@@ -172,8 +174,12 @@ public class YOLOv7ObjectDetector
                 if (results.empty() || results.cols() < 6)
                     return;
 
+                bool[] alreadyDrawn = new bool[100];
+
+                //Mat results = sortedMatrix;
                 for (int i = results.rows() - 1; i >= 0; --i)
                 {
+                    
                     float[] box = new float[4];
                     results.get(i, 0, box);
                     float[] conf = new float[1];
@@ -182,7 +188,9 @@ public class YOLOv7ObjectDetector
                     results.get(i, 5, cls);
 
                     int classId = (int)cls[0];
-                    //if (checkClass(classId)){
+
+                    if(NrealYoloObjectDetection.checkClass(classId) &&!alreadyDrawn[classId] ){
+                        alreadyDrawn[classId]=true;
                         
                         float left = box[0];
                         float top = box[1];
@@ -201,7 +209,8 @@ public class YOLOv7ObjectDetector
                         {
                             if (classId < (int)classNames.Count)
                             {
-                                label = classNames[classId] + " " + label;
+                                //we can remove the confidence later
+                                label = classNames[classId] + " " + label+"   " +NrealYoloObjectDetection.getQuant(classId);
                             }
                         }
 
@@ -212,7 +221,7 @@ public class YOLOv7ObjectDetector
                         Imgproc.rectangle(image, new Point(left, top - labelSize.height),
                             new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
                         Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
-                   // }
+                    }
 
 
                     
