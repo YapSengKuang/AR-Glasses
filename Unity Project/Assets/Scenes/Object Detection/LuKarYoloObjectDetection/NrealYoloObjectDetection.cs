@@ -206,17 +206,10 @@ namespace NrealLightWithOpenCVForUnityExample
             if (string.IsNullOrEmpty(testInputImage))
             {
 
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-                // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
-                webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
-#endif
-
-               // webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
-              // webCamTextureToMatHelper.Initialize();
+			webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
+            webCamTextureToMatHelper.Initialize();
             }
             else
-            // Not sure
             {
                 /////////////////////
                 // TEST
@@ -260,11 +253,9 @@ namespace NrealLightWithOpenCVForUnityExample
                     gameObject.GetComponent<Renderer>().material.mainTexture = texture;
                 });
                 StartCoroutine(getFilePathAsync_0_Coroutine);
+
                 /////////////////////
             }
-            // Might not need
-            webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
-            webCamTextureToMatHelper.Initialize();
         }
 
         /// <summary>
