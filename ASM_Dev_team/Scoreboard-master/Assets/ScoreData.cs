@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 // This line defines a new public class called ScoreData.
 // The [Serializable] attribute indicates that instances of this class can be serialized and deserialized.
-public class ScoreData : MonoBehaviour
+
+[Serializable]
+public class ScoreData
 {
     // This public field is a List of Score objects.
     public List<Score> scores;

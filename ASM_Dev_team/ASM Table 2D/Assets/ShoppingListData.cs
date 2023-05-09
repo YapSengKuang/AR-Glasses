@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
+[Serializable]
 public class ShoppingListData
 {
     // This public field is a List of Score objects.
