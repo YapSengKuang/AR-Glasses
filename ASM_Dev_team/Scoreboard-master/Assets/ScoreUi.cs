@@ -59,6 +59,7 @@ public class ScoreUi : MonoBehaviour
         for (int i = 0; i < tablesize; i++)
         {
             scoreManager.AddScore(new Score(myCountryList.country[i].name, myCountryList.country[i].score));
+            Debug.Log("Hello");
         }
         
         // Retrieve the high scores from the ScoreManager and display them in the UI.

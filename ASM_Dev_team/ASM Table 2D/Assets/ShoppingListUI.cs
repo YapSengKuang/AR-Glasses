@@ -28,7 +28,7 @@ public class ShoppingListUI : MonoBehaviour
     // This public field holds an instance of the CountryList class, which is used to store the score data.
     public ShoppingList myShoppingList = new ShoppingList();
 
-    void start()
+    void Start()
     {
         Debug.Log("Start");
         textAssetData = Resources.Load<TextAsset>("data");
@@ -52,19 +52,15 @@ public class ShoppingListUI : MonoBehaviour
   
         }
 
+        ShoppingItem1 = new Item("bread", "somethgin");
+
+        Debug.Log(ShoppingItem1);
+
         for (int i = 0; i < tablesize; i++)
         {
             shoppingListManager.addItem(new Item(myShoppingList.item[i].name, myShoppingList.item[i].quantity));
         }
 
-        shoppingListManager.addItem(new Item("Bread", "1 loaf"));
-        shoppingListManager.addItem(new Item("milk", "1 loaf"));
-        shoppingListManager.addItem(new Item("milk", "1 loaf"));
-        shoppingListManager.addItem(new Item("milk", "1 loaf"));
-        shoppingListManager.addItem(new Item("milk", "1 loaf"));
-        shoppingListManager.addItem(new Item("milk", "1 loaf"));
-
-        Debug.Log(shoppingListManager);
 
         var shoppingList = shoppingListManager.shoppingList;
         for (int i = 0; i < shoppingList.Count; i++)
