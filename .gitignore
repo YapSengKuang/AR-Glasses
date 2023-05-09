@@ -42,3 +42,6 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
+
+#ignore spikes
+Spikes/
