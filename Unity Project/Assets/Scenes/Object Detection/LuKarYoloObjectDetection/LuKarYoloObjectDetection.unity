@@ -446,7 +446,7 @@ MonoBehaviour:
   inpWidth: 416
   inpHeight: 416
   testInputImage: 
-  enableFrameSkip: 0
+  enableFrameSkip: 1
   displayCameraImage: 1
 --- !u!1001 &1618911840
 PrefabInstance:

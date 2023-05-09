@@ -103,7 +103,7 @@ namespace NrealLightWithOpenCVForUnityExample
         /// <summary>
         /// Determines if displays camera image.
         /// </summary>
-        public bool displayCameraImage = true;
+        public bool displayCameraImage = false;
 
         /// <summary>
         /// the main camera.
@@ -212,8 +212,8 @@ namespace NrealLightWithOpenCVForUnityExample
                 webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
 #endif
 
-               // webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
-              // webCamTextureToMatHelper.Initialize();
+              webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
+              webCamTextureToMatHelper.Initialize();
             }
             else
             // Not sure
@@ -233,11 +233,11 @@ namespace NrealLightWithOpenCVForUnityExample
                     }
                     else
                     {
-                        TickMeter tm = new TickMeter();
-                        tm.start();
+                        //TickMeter tm = new TickMeter();
+                        //tm.start();
                         Mat results = objectDetector.infer(img);
-                        tm.stop();
-                        Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
+                        //tm.stop();
+                        //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
                         objectDetector.visualize(img, results, true, false);
                     }
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -262,9 +262,7 @@ namespace NrealLightWithOpenCVForUnityExample
                 StartCoroutine(getFilePathAsync_0_Coroutine);
                 /////////////////////
             }
-            // Might not need
-            webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
-            webCamTextureToMatHelper.Initialize();
+            
         }
 
         /// <summary>
@@ -277,7 +275,7 @@ namespace NrealLightWithOpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
             
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(webCamTextureMat, texture);
+            //Utils.matToTexture2D(webCamTextureMat, texture);
             
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -352,8 +350,12 @@ namespace NrealLightWithOpenCVForUnityExample
                     Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGBA);
                     //HERE IT IS
                     objectDetector.visualize(rgbMat, results, false, true);
+
+              
+
+               //     Utils.matToTexture2D(rgbMat, texture);
                 }
-                Utils.matToTexture2D(rgbMat, texture);
+                
             }
 
             if (webCamTextureToMatHelper.IsPlaying())
