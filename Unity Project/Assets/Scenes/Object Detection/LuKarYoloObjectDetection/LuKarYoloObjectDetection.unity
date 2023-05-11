@@ -253,8 +253,8 @@ GameObject:
   - component: {fileID: 1482244279}
   - component: {fileID: 1482244278}
   - component: {fileID: 1482244277}
-  - component: {fileID: 1482244276}
   - component: {fileID: 1482244282}
+  - component: {fileID: 1482244283}
   m_Layer: 0
   m_Name: NrealYoloObjectDetectionExample
   m_TagString: Untagged
@@ -262,20 +262,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1482244276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482244273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d27c020f1865746b5abf91a35964df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _downscaleRatio: 1
-  _frameSkippingRatio: 4
 --- !u!114 &1482244277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _requestedDeviceName: 
-  _requestedWidth: 640
+  _requestedWidth: 480
   _requestedHeight: 480
   _requestedIsFrontFacing: 0
   _requestedFPS: 30
@@ -448,6 +434,20 @@ MonoBehaviour:
   testInputImage: 
   enableFrameSkip: 1
   displayCameraImage: 1
+--- !u!114 &1482244283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482244273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d27c020f1865746b5abf91a35964df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _downscaleRatio: 1
+  _frameSkippingRatio: 4
 --- !u!1001 &1618911840
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -116,7 +116,7 @@ namespace NrealLightWithOpenCVForUnityExample
         /// <summary>
         /// Determines if displays camera image.
         /// </summary>
-        public bool displayCameraImage = false;
+        public bool displayCameraImage = true;
 
         /// <summary>
         /// The display camera image toggle.
@@ -401,7 +401,7 @@ namespace NrealLightWithOpenCVForUnityExample
 
                 //
                 // Adjusting the position and scale of the display screen
-                // to counteract the phenomenon of texture margins (transparent areas in MR space) being displayed as black when recording video using NRVideoCapture.
+                // to counteract the phenomenon of texture margins (transparent areas in MR space) being displayed as black when recording madeo using NRVideoCapture.
                 //
                 // Position the canvas object slightly in front
                 // of the real world web camera.

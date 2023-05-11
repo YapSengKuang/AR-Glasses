@@ -269,7 +269,7 @@ namespace NrealLightWithOpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
             
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGB24, false);
-            //Utils.matToTexture2D(webCamTextureMat, texture);
+            Utils.matToTexture2D(webCamTextureMat, texture);
             
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -323,17 +323,23 @@ namespace NrealLightWithOpenCVForUnityExample
                 if (enableFrameSkip && imageOptimizationHelper.IsCurrentFrameSkipped())
                     return;
 
+                
 
-                Mat rgbMat = webCamTextureToMatHelper.GetMat();
+                Mat rgb = webCamTextureToMatHelper.GetMat();
+
+            
 
                 if (objectDetector == null)
                 {
-                    Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                   // Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    //Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 }
                 else
                 {
-                    Imgproc.cvtColor(rgbMat, bgrMat, Imgproc.COLOR_RGB2BGR);
+                    Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
+
+                     Size inpSize = new Size(320,320);
+                     Mat rgbMat = Dnn.blobFromImage(bgrMat, 1.0f, inpSize, new Scalar(0, 0, 0, 0), false, false);
 
                     //TickMeter tm = new TickMeter();
                     //tm.start();
@@ -343,11 +349,13 @@ namespace NrealLightWithOpenCVForUnityExample
                     //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
                     Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGBA);
                     //HERE IT IS
-                    objectDetector.visualize(rgbMat, results, false, true);
+                    objectDetector.visualize(rgbMat, results, false, true); //rgbmat
 
               
 
-               //     Utils.matToTexture2D(rgbMat, texture);
+                    Utils.matToTexture2D(rgbMat, texture);
+
+
                 }
                 
             }
