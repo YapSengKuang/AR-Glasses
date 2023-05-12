@@ -11,5 +11,8 @@ public class ShoppingListManager : MonoBehaviour
         shoppingList.Add(item);
     }
 
+    public void deleteItem(Item item){
+        shoppingList.Remove(item);
+    }
 
 }
