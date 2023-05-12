@@ -5,11 +5,11 @@ using System;
 [Serializable]
 public class ShoppingListData
 {
-    // This public field is a List of Score objects.
+    // This public field is a List of Item objects.
     public List<Item> items;
 
-    // This is the constructor for the ScoreData class.
-    // It initializes the 'scores' field as a new empty List of Score objects.
+    // This is the constructor for the ShoppingListData class.
+    // It initializes the 'items' field as a new empty List of Item objects.
     public ShoppingListData()
     {
         items = new List<Item>();
