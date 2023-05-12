@@ -120,47 +120,68 @@ namespace NrealLightWithOpenCVForUnityExample
         // Use this for initialization
         void Start()
         {
+            // Get references to the required components
             imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper>();
             webCamTextureToMatHelper = gameObject.GetComponent<NRCamTextureToMatHelper>();
-
-
+            
+// Check if the application is running on WebGL platform
 #if UNITY_WEBGL
+            // If running on WebGL, start a coroutine to get file paths asynchronously
             getFilePath_Coroutine = GetFilePath();
             StartCoroutine(getFilePath_Coroutine);
 #else
+            // If not running on WebGL, check if the 'classes' file path is provided and exists
             if (!string.IsNullOrEmpty(classes))
             {
+                // Get the file path for the 'classes' file
                 classes_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + classes);
+                
+                // Check if the file path is empty, indicating that the file does not exist
                 if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
+            // Check if the 'config' file path is provided and exists
             if (!string.IsNullOrEmpty(config))
             {
+                // Get the file path for the 'config' file
                 config_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + config);
+                
+                // Check if the file path is empty, indicating that the file does not exist
                 if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
+            // Check if the 'model' file path is provided and exists
             if (!string.IsNullOrEmpty(model))
             {
+                // Get the file path for the 'model' file
                 model_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + model);
+                
+                // Check if the file path is empty, indicating that the file does not exist
                 if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
+            
+            // Run the application
             Run();
 #endif
         }
 
 #if UNITY_WEBGL
+        // This method is a coroutine that retrieves file paths asynchronously in WebGL platform
         private virtual IEnumerator GetFilePath()
         {
+            // Check if the 'classes' file path is provided and exists
             if (!string.IsNullOrEmpty(classes))
             {
+                // Start a coroutine to get the file path for the 'classes' file asynchronously
                 var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + classes, (result) =>
                 {
                     classes_filepath = result;
                 });
                 yield return getFilePathAsync_0_Coroutine;
 
+                // Check if the file path is empty, indicating that the file does not exist
                 if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
+            // Similar operations are performed for the 'config' and 'model' file paths
             if (!string.IsNullOrEmpty(config))
             {
                 var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + config, (result) =>
@@ -183,42 +204,49 @@ namespace NrealLightWithOpenCVForUnityExample
                 if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
+            // Set the getFilePath_Coroutine variable to null (coroutine has completed)
             getFilePath_Coroutine = null;
 
+            // Run the application
             Run();
         }
 #endif
 
-        // Use this for initialization
+        // This method is responsible for running the object detection application
         void Run()
         {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            // Set the debug mode for OpenCV to display error logs
             Utils.setDebugMode(true);
 
+            // Check if the 'model' and 'classes' file paths are provided
             if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
             {
                 Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded.");
             }
             else
             {
+                // Create an instance of the YOLOv7ObjectDetector using the provided file paths
                 objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
             }
 
+            // Check if a test input image is provided
             if (string.IsNullOrEmpty(testInputImage))
             {
-
+            // If no test input image is provided, initialize the web camera texture to mat helper
 			webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGB;
             webCamTextureToMatHelper.Initialize();
             }
+            
+            // If a test input image is provided, load the image and perform object detection on it
             else
             {
-                /////////////////////
-                // TEST
+                // Start a coroutine to get the file path for the test input image asynchronously
                 var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + testInputImage, (result) =>
                 {
                     string test_input_image_filepath = result;
                     if (string.IsNullOrEmpty(test_input_image_filepath)) Debug.Log("The file:" + testInputImage + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
                     Mat img = Imgcodecs.imread(test_input_image_filepath);
+                    // Perform object detection and visualization on the image
                     if (img.empty())
                     {
                         img = new Mat(424, 640, CvType.CV_8UC3, new Scalar(0, 0, 0));
@@ -261,43 +289,54 @@ namespace NrealLightWithOpenCVForUnityExample
 
         /// <summary>
         /// Raises the webcam texture to mat helper initialized event.
+        /// This method is called when the web camera texture to mat helper is initialized
         /// </summary>
         public void OnWebCamTextureToMatHelperInitialized()
         {
             Debug.Log("OnWebCamTextureToMatHelperInitialized");
 
+            // Get the current frame from the web camera texture to mat helper
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
             
+            // Create a new Texture2D with the dimensions of the web camera texture
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGB24, false);
+            
+            // Convert the web camera texture mat to a Texture2D
             Utils.matToTexture2D(webCamTextureMat, texture);
             
+            // Set the main texture of the renderer's material to the converted Texture2D
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
+            // Get the Renderer component and set the necessary parameters for the shader
             quad_renderer = gameObject.GetComponent<Renderer>() as Renderer;
             quad_renderer.sharedMaterial.SetTexture("_MainTex", texture);
             quad_renderer.sharedMaterial.SetVector("_VignetteOffset", new Vector4(0, 0));
             quad_renderer.sharedMaterial.SetFloat("_VignetteScale", 0.0f);
-
+            
+// Set the camera projection matrix based on the platform (WebGL or Unity Editor)
 #if !UNITY_EDITOR
             quad_renderer.sharedMaterial.SetMatrix("_CameraProjectionMatrix", webCamTextureToMatHelper.GetProjectionMatrix());
 #else
             mainCamera = NRSessionManager.Instance.NRHMDPoseTracker.centerCamera;
             quad_renderer.sharedMaterial.SetMatrix("_CameraProjectionMatrix", mainCamera.projectionMatrix);
 #endif
-
+            // Create a new Mat with the dimensions of the web camera texture
             bgrMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
         }
 
         /// <summary>
         /// Raises the webcam texture to mat helper disposed event.
+        /// This method is called when the web camera texture to mat helper is disposed
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed()
         {
             Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
+            // Dispose the bgrMat if it exists
             if (bgrMat != null)
                 bgrMat.Dispose();
 
+            // Destroy the texture if it exists
             if (texture != null)
             {
                 Texture2D.Destroy(texture);
@@ -307,6 +346,7 @@ namespace NrealLightWithOpenCVForUnityExample
 
         /// <summary>
         /// Raises the webcam texture to mat helper error occurred event.
+        /// This method is called when an error occurs in the web camera texture to mat helper
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
@@ -317,61 +357,68 @@ namespace NrealLightWithOpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
+            // Check if the web camera texture to mat helper is playing and if the frame was updated
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
-
+                // If frame skipping is enabled and the current frame should be skipped, return
                 if (enableFrameSkip && imageOptimizationHelper.IsCurrentFrameSkipped())
                     return;
-
                 
-
+                // Get the current frame from the web camera texture to mat helper
                 Mat rgb = webCamTextureToMatHelper.GetMat();
 
-            
-
+                // Check if the object detector is null
                 if (objectDetector == null)
                 {
-                   // Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    //If the object detector is null, you can add some text overlays to the frame using Imgproc.putText() to indicate that the model file is not loaded or to read console messages.
+                    //Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     //Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 }
                 else
                 {
+                    // Convert the image from RGB to BGR color space
                     Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
 
+                    // Create an input blob for the object detector using the BGR image
                      Size inpSize = new Size(320,320);
                      Mat rgbMat = Dnn.blobFromImage(bgrMat, 1.0f, inpSize, new Scalar(0, 0, 0, 0), false, false);
 
                     //TickMeter tm = new TickMeter();
                     //tm.start();
 
+                    // Perform inference using the object detector
                     Mat results = objectDetector.infer(bgrMat);
+                    
                     //tm.stop();
                     //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
+                    
+                    // Convert the BGR image back to RGBA color space
                     Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGBA);
-                    //HERE IT IS
+                    
+                    // Visualize the results on the RGB image
                     objectDetector.visualize(rgbMat, results, false, true); //rgbmat
-
-              
-
+                    
+                    // Convert the RGB image with visualized results to a Texture2D
                     Utils.matToTexture2D(rgbMat, texture);
-
-
                 }
-                
             }
-
+            // Check if the web camera texture to mat helper is playing
             if (webCamTextureToMatHelper.IsPlaying())
-            {
+            { 
+                
+// Get the camera to world matrix
 #if UNITY_ANDROID && !UNITY_EDITOR
                 Matrix4x4 cameraToWorldMatrix = webCamTextureToMatHelper.GetCameraToWorldMatrix();
 #else
                 Matrix4x4 cameraToWorldMatrix = mainCamera.cameraToWorldMatrix;
 #endif
-
+                // Calculate the world to camera matrix
                 Matrix4x4 worldToCameraMatrix = cameraToWorldMatrix.inverse;
-
+                
+                // Set the world to camera matrix in the shared material of the renderer
                 quad_renderer.sharedMaterial.SetMatrix("_WorldToCameraMatrix", worldToCameraMatrix);
 
+                // Uncomment this section if you want to adjust the position and rotation of the canvas object
                 /*
                 // Position the canvas object slightly in front
                 // of the real world web camera.
@@ -391,26 +438,40 @@ namespace NrealLightWithOpenCVForUnityExample
                 //
                 // Position the canvas object slightly in front
                 // of the real world web camera.
+                
+                // Define the distance for overlaying the canvas object in front of the real-world web camera
                 float overlayDistance = 1.5f;
+                
+                // Calculate the camera space position for the center of the canvas object
                 Vector3 ccCameraSpacePos = UnProjectVector(webCamTextureToMatHelper.GetProjectionMatrix(), new Vector3(0.0f, 0.0f, overlayDistance));
+                
+                // Calculate the camera space position for the top-left corner of the canvas object
                 Vector3 tlCameraSpacePos = UnProjectVector(webCamTextureToMatHelper.GetProjectionMatrix(), new Vector3(-overlayDistance, overlayDistance, overlayDistance));
 
-                //position
+                // Convert the camera space position of the center of the canvas object to world space
                 Vector3 position = cameraToWorldMatrix.MultiplyPoint3x4(ccCameraSpacePos);
+                
+                // Set the position of the canvas object
                 gameObject.transform.position = position;
 
-                //scale
+                // Calculate the scale of the canvas object based on the difference in camera space positions between the top-left corner and center
                 Vector3 scale = new Vector3(Mathf.Abs(tlCameraSpacePos.x - ccCameraSpacePos.x) * 2, Mathf.Abs(tlCameraSpacePos.y - ccCameraSpacePos.y) * 2, 1);
+                
+                // Set the scale of the canvas object
                 gameObject.transform.localScale = scale;
 
                 // Rotate the canvas object so that it faces the user.
                 Quaternion rotation = Quaternion.LookRotation(-cameraToWorldMatrix.GetColumn(2), cameraToWorldMatrix.GetColumn(1));
                 gameObject.transform.rotation = rotation;
-                //
             }
         }
-
-        //
+        
+        /// <summary>
+        /// Converts a vector from screen space to camera space using the provided projection matrix.
+        /// </summary>
+        /// <param name="proj">The projection matrix used for the conversion.</param>
+        /// <param name="to">The vector to be converted.</param>
+        /// <returns>The vector in camera space.</returns>
         private Vector3 UnProjectVector(Matrix4x4 proj, Vector3 to)
         {
             Vector3 from = new Vector3(0, 0, 0);
@@ -422,21 +483,26 @@ namespace NrealLightWithOpenCVForUnityExample
             from.x = (to.x - (from.z * axsX.z)) / axsX.x;
             return from;
         }
-        //
 
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
         void OnDestroy()
         {
+            // Dispose the webCamTextureToMatHelper
             webCamTextureToMatHelper.Dispose();
+            
+            // Dispose the imageOptimizationHelper
             imageOptimizationHelper.Dispose();
 
+            // Dispose the objectDetector if it is not null
             if (objectDetector != null)
                 objectDetector.dispose();
 
+            // Disable the debug mode in the Utils class
             Utils.setDebugMode(false);
 
+// Dispose the getFilePath_Coroutine if it is running
 #if UNITY_WEBGL
             if (getFilePath_Coroutine != null)
             {
@@ -486,11 +552,22 @@ namespace NrealLightWithOpenCVForUnityExample
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
+        /// <summary>
+        /// Checks if a given integer value exists in the phoneBook array.
+        /// </summary>
+        /// <param name="i">The integer value to check.</param>
+        /// <returns>True if the value exists in the phoneBook array, false otherwise.</returns>
 		public static bool checkClass(int i){
             int[] phoneBook = {67, 73};
             //return Array.Exists(phoneBook, element=>element==i);
             return true; 
         }
+
+        /// <summary>
+        /// Returns a string representing the quantity based on the given integer value.
+        /// </summary>
+        /// <param name="i">The integer value.</param>
+        /// <returns>A string representing the quantity.</returns>
 
         public static string getQuant(int i){
             return "Quant: X"+i.ToString();
