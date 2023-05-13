@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class RowUI : MonoBehaviour
 {
-    public Text number;
+    // The Text component that will display the number.
+    public Text number; 
+    // The Text component that will display the name.
     public Text name;
+    // The Text component that will display the quantity.
     public Text quantity;
     
 }
