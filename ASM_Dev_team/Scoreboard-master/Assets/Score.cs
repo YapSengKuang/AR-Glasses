@@ -8,11 +8,11 @@ public class Score
 {
     // These two public fields are used to store the name and score of a player's score.
     public string name;
-    public float score;
+    public string score;
 
     // This is the constructor for the Score class.
     // It takes in two parameters: a string for the player's name and a float for their score.
-    public Score(string name, float score)
+    public Score(string name, string score)
     {
         // This line assigns the 'name' parameter to the 'name' field of the Score instance being constructed.
         this.name = name;

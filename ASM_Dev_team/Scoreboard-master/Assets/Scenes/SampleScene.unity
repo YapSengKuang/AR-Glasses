@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 360387528}
   - component: {fileID: 360387527}
   m_Layer: 5
-  m_Name: Name
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: Item
 --- !u!222 &360387528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -251,8 +251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7785d5f9856f0204697cd3a5295db2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowUi: {fileID: 4024178575410231233, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
+  textAssetData: {fileID: 0}
   scoreManager: {fileID: 1337417959}
+  rowUi: {fileID: 4024178575410231233, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
+  myCountryList:
+    country: []
 --- !u!114 &499007760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +375,7 @@ GameObject:
   - component: {fileID: 1182828912}
   - component: {fileID: 1182828911}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +433,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Score
+  m_Text: Quantity
 --- !u!222 &1182828912
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -778,7 +781,7 @@ GameObject:
   - component: {fileID: 1869414438}
   - component: {fileID: 1869414437}
   m_Layer: 5
-  m_Name: Rank
+  m_Name: No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -836,7 +839,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rank
+  m_Text: No.
 --- !u!222 &1869414438
 CanvasRenderer:
   m_ObjectHideFlags: 0

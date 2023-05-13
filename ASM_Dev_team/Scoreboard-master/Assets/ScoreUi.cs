@@ -19,7 +19,7 @@ public class ScoreUi : MonoBehaviour
     {
         public int rank;
         public string name;
-        public int score;
+        public string score;
     }
     [System.Serializable]
     public class CountryList
@@ -34,7 +34,7 @@ public class ScoreUi : MonoBehaviour
     void Start()
     {
         // Load the score data from the TextAsset object.
-        textAssetData = Resources.Load<TextAsset>("data");
+        textAssetData = Resources.Load<TextAsset>("MyShoppingLIst");
 
         // Split the score data into an array of strings using ',' and '\n' as delimiters.
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
@@ -52,7 +52,7 @@ public class ScoreUi : MonoBehaviour
             myCountryList.country[i] = new Country();
             myCountryList.country[i].rank = int.Parse(data[arrayIndex]);
             myCountryList.country[i].name = data[arrayIndex + 1];
-            myCountryList.country[i].score = int.Parse(data[arrayIndex + 2]);
+            myCountryList.country[i].score = data[arrayIndex + 2];
         }
 
         // Add the score data to the ScoreManager.
@@ -69,7 +69,7 @@ public class ScoreUi : MonoBehaviour
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
             row.rank.text = (i + 1).ToString();
             row.name.text = scores[i].name;
-            row.score.text = scores[i].score.ToString();
+            row.score.text = scores[i].score;
         }
     }
 }
