@@ -44,17 +44,13 @@ public class YOLOv7ObjectDetector
             MatOfFloat confidences;
             MatOfRect boxes;
 
-            //these start as false
-            bool[] taken = new bool[100]; //has it been checked off?
-            public bool showing = false; //Is a popup showing
-            public int ShowingID;
-        
-            public ConfirmationPopup aConfirmationPopup;
+            bool[] taken = new bool[100];
 
 
-            public YOLOv7ObjectDetector(ConfirmationPopup thisConfirmationPopup, string modelFilepath, string configFilepath, string classesFilepath, Size inputSize, float confThreshold = 0.25f, float nmsThreshold = 0.45f, int topK = 1000, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
+
+
+            public YOLOv7ObjectDetector(string modelFilepath, string configFilepath, string classesFilepath, Size inputSize, float confThreshold = 0.25f, float nmsThreshold = 0.45f, int topK = 1000, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
             {   
-                aConfirmationPopup = thisConfirmationPopup;
                 // initialize
                 if (!string.IsNullOrEmpty(modelFilepath))
                 {
@@ -179,13 +175,13 @@ public class YOLOv7ObjectDetector
                 return output_blob; 
             }
 
-            public virtual void visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false)
+            public virtual int visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false)
             {
                 if (image.IsDisposed)
-                    return;
+                    return -1;
 
                 if (results.empty() || results.cols() < 6)
-                    return;
+                    return -1;
 
                 bool[] alreadyDrawn = new bool[100];
 
@@ -220,7 +216,7 @@ public class YOLOv7ObjectDetector
                         Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
                         //Debug.Log(((right-left)*(top-bottom)).ToString());
-                        if(Math.Abs((right-left)*(top-bottom))>50000){
+                        if(res==-1 && Math.Abs((right-left)*(top-bottom))>50000){
                             res=classId;
                         }
 
@@ -284,11 +280,8 @@ public class YOLOv7ObjectDetector
                     Debug.Log(sb);
                     
                 }
-                if(res!=-1 && !showing){
-                    OpenConfirmaitonWindow(classNames[res]);
-                    ShowingID = res;
-                }
-                return ;
+
+                return res;
 
             }
 
@@ -318,7 +311,8 @@ public class YOLOv7ObjectDetector
             {
             
                 List<string> classNames = new List<string>();
-
+                
+                
                 System.IO.StreamReader cReader = null;
                 try
                 {
@@ -344,25 +338,14 @@ public class YOLOv7ObjectDetector
                 return classNames;
             }
 
-            private void OpenConfirmaitonWindow(string message){
-                aConfirmationPopup.gameObject.SetActive(true);
-                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
-                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
-                aConfirmationPopup.messageText.text = message;
-                showing=!showing;
+            public void showing(int id){
+                taken[id]=true;
             }
 
-            public void ConfirmClicked(){
-                aConfirmationPopup.gameObject.SetActive(false);
-                Debug.Log("a");
-                taken[ShowingID]=true;
-                showing=!showing;
-            }
+        }
 
-            public void NoClicked(){
-                aConfirmationPopup.gameObject.SetActive(false);
-                Debug.Log("b");
-                showing=!showing;
-            }
-            }
+        
+
+
+            
 }

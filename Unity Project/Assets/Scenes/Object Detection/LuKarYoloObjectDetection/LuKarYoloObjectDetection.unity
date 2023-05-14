@@ -1866,6 +1866,8 @@ MonoBehaviour:
   displayCameraImage: 1
   displayCameraImageToggle: {fileID: 2020960552}
   aConfirmationPopup: {fileID: 1691116605}
+  showing: 0
+  showingID: 0
 --- !u!114 &1482244283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,7 +1960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1691116602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2030,7 +2032,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691116601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e24cf16f06d34f83c66b2efed64c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0317ff4ef5d38e6419143c2260d84117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   confirmButton: {fileID: 794172644}
@@ -2139,6 +2141,10 @@ PrefabInstance:
     - target: {fileID: 4808320353365586, guid: ad152f08ed7eb6e4abd93376a0203e38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114189359072911506, guid: ad152f08ed7eb6e4abd93376a0203e38, type: 3}
+      propertyPath: m_RaycastMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad152f08ed7eb6e4abd93376a0203e38, type: 3}

@@ -131,7 +131,13 @@ namespace NrealLightWithOpenCVForUnityExample
         bool show;
 
         //Popup stuff...
-        //[SerializeField] public ConfirmationPopup aConfirmationPopup;
+        [SerializeField] public ConfirmationPopup aConfirmationPopup;
+
+        public bool showing = false; //Is a popup showing
+        public int showingID;
+        public int showingID2;
+        List<string> classNames;
+
 
 
 
@@ -247,7 +253,10 @@ namespace NrealLightWithOpenCVForUnityExample
             else
             {
                 // Create an instance of the YOLOv7ObjectDetector using the provided file paths
-                objectDetector = new YOLOv7ObjectDetector(aConfirmationPopup, model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
+                objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
+                classNames = readClassNames(classes_filepath);
+                //Debug.Log("2222222222222222222222222");
+                //Debug.Log(classNames);
             }
 
             // Check if a test input image is provided
@@ -261,6 +270,7 @@ namespace NrealLightWithOpenCVForUnityExample
             // If a test input image is provided, load the image and perform object detection on it
             else
             {
+
                 // Start a coroutine to get the file path for the test input image asynchronously
                 var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + testInputImage, (result) =>
                 {
@@ -282,7 +292,7 @@ namespace NrealLightWithOpenCVForUnityExample
                         //tm.stop();
                         //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
                         
-                        objectDetector.visualize(img, results, true, false);
+                        showingID = objectDetector.visualize(img, results, true, false);
                     }
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
                     float imageWidth = img.width();
@@ -429,19 +439,25 @@ namespace NrealLightWithOpenCVForUnityExample
                     //Debug.Log(taken[4]);
                     if (!displayCameraImage){
                         Mat blankMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC3, new Scalar(0, 0, 0));
-                        objectDetector.visualize(blankMat, results, false, true); //rgbmat
+                        showingID2 = objectDetector.visualize(blankMat, results, false, true); //rgbmat
                     
                         // Convert the RGB image with visualized results to a Texture2D
                         Utils.matToTexture2D(blankMat, texture);
                     }
                     else{
-                        objectDetector.visualize(rgbMat, results, false, true); //rgbmat
+                        showingID2 = objectDetector.visualize(rgbMat, results, false, true); //rgbmat
 
                         
 
                         // Convert the RGB image with visualized results to a Texture2D
                         Utils.matToTexture2D(rgbMat, texture);
                     }
+                    
+                    if(!showing && showingID2!=-1){
+                        OpenConfirmaitonWindow(classNames[showingID2]);
+                        showingID = showingID2;
+                    }
+
 
 
                 }
@@ -634,25 +650,61 @@ namespace NrealLightWithOpenCVForUnityExample
             displayCameraImage = displayCameraImageToggle.isOn;
         }
 
-                private void OpenConfirmaitonWindow(string message){
-                aConfirmationPopup.gameObject.SetActive(true);
-                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
-                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
-                aConfirmationPopup.messageText.text = message;
-                showing=!showing;
-            }
+        private void OpenConfirmaitonWindow(string message){
+            showing=true;
+            aConfirmationPopup.gameObject.SetActive(true);
+            aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+            aConfirmationPopup.messageText.text = message;
+   
+        }
 
-            public void ConfirmClicked(){
-                aConfirmationPopup.gameObject.SetActive(false);
-                Debug.Log("a");
-                taken[ShowingID]=true;
-                showing=!showing;
-            }
+        public void ConfirmClicked(){
+            aConfirmationPopup.gameObject.SetActive(false);
+            aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
 
-            public void NoClicked(){
-                aConfirmationPopup.gameObject.SetActive(false);
-                Debug.Log("b");
-                showing=!showing;
+            objectDetector.showing(showingID);
+            showing=false;
+        }
+
+        public void NoClicked(){
+            aConfirmationPopup.gameObject.SetActive(false);
+            aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
+
+            showing=false;
+
+        }
+
+        protected virtual List<string> readClassNames(string filename)
+            {
+            
+                List<string> classNames = new List<string>();
+
+                System.IO.StreamReader cReader = null;
+                try
+                {
+                    cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
+
+                    while (cReader.Peek() >= 0)
+                    {
+                        string name = cReader.ReadLine();
+                        classNames.Add(name);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError(ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    if (cReader != null)
+                        cReader.Close();
+                }
+
+                return classNames;
             }
 
 

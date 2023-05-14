@@ -93,6 +93,20 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
+        bool show;
+
+        //Popup stuff...
+        [SerializeField] public ConfirmationPopup aConfirmationPopup;
+
+        public bool showing = false; //Is a popup showing
+        public int showingID;
+        public int showingID2;
+        List<string> classNames;
+
+
+
+
+
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -185,6 +199,7 @@ namespace OpenCVForUnityExample
             else
             {
                 objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
+                classNames = readClassNames(classes_filepath);
             }
 
             if (string.IsNullOrEmpty(testInputImage))
@@ -222,7 +237,7 @@ namespace OpenCVForUnityExample
                         tm.stop();
                         Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
 
-                        objectDetector.visualize(img, results, true, false);
+                        showingID = objectDetector.visualize(img, results, true, false);
                     }
 
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -349,11 +364,17 @@ namespace OpenCVForUnityExample
 
                     //HERE IT IS
 
-                    objectDetector.visualize(rgbaMat, results, false, true);
+                    showingID2 = objectDetector.visualize(rgbaMat, results, false, true);
+                    if(!showing && showingID2!=-1){
+                        OpenConfirmaitonWindow(classNames[showingID2]);
+                        showingID=showingID2;
+                    }
                 }
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }
+
+
 
         }
 
@@ -424,6 +445,65 @@ namespace OpenCVForUnityExample
             return true;
             //return Array.Exists(phoneBook, element=>element==i);
         }
+
+        private void OpenConfirmaitonWindow(string message){
+            showing=true;
+            aConfirmationPopup.gameObject.SetActive(true);
+            aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+            aConfirmationPopup.messageText.text = message;
+        }
+
+        public void ConfirmClicked(){
+            aConfirmationPopup.gameObject.SetActive(false);
+            aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
+
+            Debug.Log(showingID);
+            Debug.Log("22222");
+            objectDetector.showing(showingID);
+
+            showing=false;
+        }
+
+        public void NoClicked(){
+            aConfirmationPopup.gameObject.SetActive(false);
+            aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
+            aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
+
+            showing=false;
+
+        }
+
+        protected virtual List<string> readClassNames(string filename)
+            {
+            
+                List<string> classNames = new List<string>();
+
+                System.IO.StreamReader cReader = null;
+                try
+                {
+                    cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
+
+                    while (cReader.Peek() >= 0)
+                    {
+                        string name = cReader.ReadLine();
+                        classNames.Add(name);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError(ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    if (cReader != null)
+                        cReader.Close();
+                }
+
+                return classNames;
+            }
         
         private class YOLOv7ObjectDetector
         {
@@ -447,6 +527,8 @@ namespace OpenCVForUnityExample
             MatOfInt classIds;
             MatOfFloat confidences;
             MatOfRect boxes;
+
+            bool[] taken = new bool[100];
 
             public YOLOv7ObjectDetector(string modelFilepath, string configFilepath, string classesFilepath, Size inputSize, float confThreshold = 0.25f, float nmsThreshold = 0.45f, int topK = 1000, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
             {
@@ -571,14 +653,15 @@ namespace OpenCVForUnityExample
                 return output_blob;
             }
 
-            public virtual void visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false)
+            public virtual int visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false)
             {
                 if (image.IsDisposed)
-                    return;
+                    return -1;
 
                 if (results.empty() || results.cols() < 6)
-                    return;
+                    return -1;
 
+                 int res = -1;
                 for (int i = results.rows() - 1; i >= 0; --i)
                 {
                     float[] box = new float[4];
@@ -589,12 +672,16 @@ namespace OpenCVForUnityExample
                     results.get(i, 5, cls);
 
                     int classId = (int)cls[0];
-                    if (checkClass(classId)){
+                    if (!taken[classId] ){ //checkClass(classId)
                         
                         float left = box[0];
                         float top = box[1];
                         float right = box[2];
                         float bottom = box[3];
+
+                        if(res==-1 && Math.Abs((right-left)*(top-bottom))>50000){
+                            res=classId;
+                        }
                         
 
                         Scalar c = palette[classId % palette.Count];
@@ -662,6 +749,7 @@ namespace OpenCVForUnityExample
                     Debug.Log(sb);
                     
                 }
+                return res;
             }
 
             public virtual void dispose()
@@ -715,6 +803,14 @@ namespace OpenCVForUnityExample
 
                 return classNames;
             }
+
+
+            public void showing(int id){
+                taken[id]=true;
+            }
+
+
+            
         }
     
     }
