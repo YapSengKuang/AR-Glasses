@@ -17,6 +17,7 @@ using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
 using NrealLightWithOpenCVForUnityExample;
 
+
 namespace NrealLightWithOpenCVForUnityExample {
 public class YOLOv7ObjectDetector
         {
@@ -43,8 +44,17 @@ public class YOLOv7ObjectDetector
             MatOfFloat confidences;
             MatOfRect boxes;
 
-            public YOLOv7ObjectDetector(string modelFilepath, string configFilepath, string classesFilepath, Size inputSize, float confThreshold = 0.25f, float nmsThreshold = 0.45f, int topK = 1000, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
-            {
+            //these start as false
+            bool[] taken = new bool[100]; //has it been checked off?
+            public bool showing = false; //Is a popup showing
+            public int ShowingID;
+        
+            public ConfirmationPopup aConfirmationPopup;
+
+
+            public YOLOv7ObjectDetector(ConfirmationPopup thisConfirmationPopup, string modelFilepath, string configFilepath, string classesFilepath, Size inputSize, float confThreshold = 0.25f, float nmsThreshold = 0.45f, int topK = 1000, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
+            {   
+                aConfirmationPopup = thisConfirmationPopup;
                 // initialize
                 if (!string.IsNullOrEmpty(modelFilepath))
                 {
@@ -179,6 +189,7 @@ public class YOLOv7ObjectDetector
 
                 bool[] alreadyDrawn = new bool[100];
 
+                int res = -1;
                 //Mat results = sortedMatrix;
                 for (int i = results.rows() - 1; i >= 0; --i)
                 {
@@ -192,7 +203,8 @@ public class YOLOv7ObjectDetector
 
                     int classId = (int)cls[0];
 
-                    if(NrealYoloObjectDetection.checkClass(classId) &&!alreadyDrawn[classId] ){
+                    //Debug.Log(classId.ToString());
+                    if(!taken[classId] &&!alreadyDrawn[classId] ){
                         alreadyDrawn[classId]=true;
                         
                         float left = box[0];
@@ -206,6 +218,11 @@ public class YOLOv7ObjectDetector
                         Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
 
                         Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
+
+                        //Debug.Log(((right-left)*(top-bottom)).ToString());
+                        if(Math.Abs((right-left)*(top-bottom))>50000){
+                            res=classId;
+                        }
 
                         string label = String.Format("{0:0.00}", conf[0]);
                         if (classNames != null && classNames.Count != 0)
@@ -267,6 +284,12 @@ public class YOLOv7ObjectDetector
                     Debug.Log(sb);
                     
                 }
+                if(res!=-1 && !showing){
+                    OpenConfirmaitonWindow(classNames[res]);
+                    ShowingID = res;
+                }
+                return ;
+
             }
 
             public virtual void dispose()
@@ -320,5 +343,26 @@ public class YOLOv7ObjectDetector
 
                 return classNames;
             }
-        }
+
+            private void OpenConfirmaitonWindow(string message){
+                aConfirmationPopup.gameObject.SetActive(true);
+                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+                aConfirmationPopup.messageText.text = message;
+                showing=!showing;
+            }
+
+            public void ConfirmClicked(){
+                aConfirmationPopup.gameObject.SetActive(false);
+                Debug.Log("a");
+                taken[ShowingID]=true;
+                showing=!showing;
+            }
+
+            public void NoClicked(){
+                aConfirmationPopup.gameObject.SetActive(false);
+                Debug.Log("b");
+                showing=!showing;
+            }
+            }
 }

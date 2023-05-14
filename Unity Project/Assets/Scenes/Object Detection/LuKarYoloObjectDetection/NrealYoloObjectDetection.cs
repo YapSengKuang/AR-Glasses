@@ -21,6 +21,7 @@ using NRKernal;
 using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
 
+
 namespace NrealLightWithOpenCVForUnityExample
 {
     
@@ -102,9 +103,19 @@ namespace NrealLightWithOpenCVForUnityExample
         public bool enableFrameSkip;
 
         /// <summary>
+        /// The enable frame skip toggle.
+        /// </summary>
+        public Toggle enableFrameSkipToggle;
+
+        /// <summary>
         /// Determines if displays camera image.
         /// </summary>
-        public bool displayCameraImage = false;
+        public bool displayCameraImage = true;
+
+        /// <summary>
+        /// The display camera image toggle.
+        /// </summary>
+        public Toggle displayCameraImageToggle;
 
         /// <summary>
         /// the main camera.
@@ -116,10 +127,20 @@ namespace NrealLightWithOpenCVForUnityExample
         /// </summary>
         Renderer quad_renderer;
 
+        //shows every 2nd frame
+        bool show;
+
+        //Popup stuff...
+        //[SerializeField] public ConfirmationPopup aConfirmationPopup;
+
+
+
 
         // Use this for initialization
         void Start()
-        {
+        {   
+            enableFrameSkipToggle.isOn = enableFrameSkip;
+            displayCameraImageToggle.isOn = displayCameraImage;
             // Get references to the required components
             imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper>();
             webCamTextureToMatHelper = gameObject.GetComponent<NRCamTextureToMatHelper>();
@@ -226,7 +247,7 @@ namespace NrealLightWithOpenCVForUnityExample
             else
             {
                 // Create an instance of the YOLOv7ObjectDetector using the provided file paths
-                objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
+                objectDetector = new YOLOv7ObjectDetector(aConfirmationPopup, model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
             }
 
             // Check if a test input image is provided
@@ -260,6 +281,7 @@ namespace NrealLightWithOpenCVForUnityExample
                         Mat results = objectDetector.infer(img);
                         //tm.stop();
                         //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
+                        
                         objectDetector.visualize(img, results, true, false);
                     }
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -356,7 +378,12 @@ namespace NrealLightWithOpenCVForUnityExample
 
         // Update is called once per frame
         void Update()
-        {
+        {   
+            show=!show;
+            if(show){
+                return;
+            }
+
             // Check if the web camera texture to mat helper is playing and if the frame was updated
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
@@ -376,12 +403,15 @@ namespace NrealLightWithOpenCVForUnityExample
                 }
                 else
                 {
+
+
                     // Convert the image from RGB to BGR color space
                     Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
 
                     // Create an input blob for the object detector using the BGR image
-                     Size inpSize = new Size(320,320);
-                     Mat rgbMat = Dnn.blobFromImage(bgrMat, 1.0f, inpSize, new Scalar(0, 0, 0, 0), false, false);
+                    
+                    Size inpSize = new Size(320,320);
+                    Mat rgbMat = Dnn.blobFromImage(bgrMat, 1.0f, inpSize, new Scalar(0, 0, 0, 0), false, false);
 
                     //TickMeter tm = new TickMeter();
                     //tm.start();
@@ -392,14 +422,28 @@ namespace NrealLightWithOpenCVForUnityExample
                     //tm.stop();
                     //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
                     
-                    // Convert the BGR image back to RGBA color space
+                    
                     Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGBA);
                     
                     // Visualize the results on the RGB image
-                    objectDetector.visualize(rgbMat, results, false, true); //rgbmat
+                    //Debug.Log(taken[4]);
+                    if (!displayCameraImage){
+                        Mat blankMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC3, new Scalar(0, 0, 0));
+                        objectDetector.visualize(blankMat, results, false, true); //rgbmat
                     
-                    // Convert the RGB image with visualized results to a Texture2D
-                    Utils.matToTexture2D(rgbMat, texture);
+                        // Convert the RGB image with visualized results to a Texture2D
+                        Utils.matToTexture2D(blankMat, texture);
+                    }
+                    else{
+                        objectDetector.visualize(rgbMat, results, false, true); //rgbmat
+
+                        
+
+                        // Convert the RGB image with visualized results to a Texture2D
+                        Utils.matToTexture2D(rgbMat, texture);
+                    }
+
+
                 }
             }
             // Check if the web camera texture to mat helper is playing
@@ -557,8 +601,9 @@ namespace NrealLightWithOpenCVForUnityExample
         /// </summary>
         /// <param name="i">The integer value to check.</param>
         /// <returns>True if the value exists in the phoneBook array, false otherwise.</returns>
-		public static bool checkClass(int i){
-            int[] phoneBook = {67, 73};
+		public bool checkClass(int i){
+            //return taken[i];
+            //int[] phoneBook = {67, 73};
             //return Array.Exists(phoneBook, element=>element==i);
             return true; 
         }
@@ -573,6 +618,46 @@ namespace NrealLightWithOpenCVForUnityExample
             return "Quant: X"+i.ToString();
         }
         
+        /// <summary>
+        /// Raises the enable frame skip toggle value changed event.
+        /// </summary>
+        public void OnEnableFrameSkipToggleValueChanged()
+        {
+            enableFrameSkip = enableFrameSkipToggle.isOn;
+        }
+
+        /// <summary>
+        /// Raises the display camera image toggle value changed event.
+        /// </summary>
+        public void OnDisplayCameraImageToggleValueChanged()
+        {
+            displayCameraImage = displayCameraImageToggle.isOn;
+        }
+
+                private void OpenConfirmaitonWindow(string message){
+                aConfirmationPopup.gameObject.SetActive(true);
+                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+                aConfirmationPopup.messageText.text = message;
+                showing=!showing;
+            }
+
+            public void ConfirmClicked(){
+                aConfirmationPopup.gameObject.SetActive(false);
+                Debug.Log("a");
+                taken[ShowingID]=true;
+                showing=!showing;
+            }
+
+            public void NoClicked(){
+                aConfirmationPopup.gameObject.SetActive(false);
+                Debug.Log("b");
+                showing=!showing;
+            }
+
+
+
+
     }
     
 }
