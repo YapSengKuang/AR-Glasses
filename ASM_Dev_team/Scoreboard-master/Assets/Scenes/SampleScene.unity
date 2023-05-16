@@ -248,14 +248,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 499007757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7785d5f9856f0204697cd3a5295db2bb, type: 3}
+  m_Script: {fileID: 11500000, guid: fbbe7373f9dd723448c87c7f8457644d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textAssetData: {fileID: 0}
-  scoreManager: {fileID: 1337417959}
-  rowUi: {fileID: 4024178575410231233, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
-  myCountryList:
-    country: []
+  rowUi: {fileID: 2428096050137026279, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
+  shoppingListManager: {fileID: 1337417959}
+  myShoppingList:
+    item: []
 --- !u!114 &499007760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 1337417960}
   - component: {fileID: 1337417959}
   m_Layer: 0
-  m_Name: ScoreManager
+  m_Name: ShoppingListManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1337417958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b903d82c78fd514da561f03c759dac7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e9f49123a3cf8549997b0b4f222c431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1337417960

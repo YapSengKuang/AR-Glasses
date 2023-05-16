@@ -10,7 +10,7 @@ public class ShoppingListUI : MonoBehaviour
     // The TextAsset that contains the shopping list data.
     public TextAsset textAssetData;
     // Reference to the RowUI prefab for creating rows in the UI.
-    public RowUI rowUi;
+    public RowUi rowUi;
     // Reference to the ShoppingListManager for managing the shopping list data.
     public ShoppingListManager shoppingListManager;
 
@@ -68,7 +68,7 @@ public class ShoppingListUI : MonoBehaviour
         for (int i = 0; i < shoppingList.Count; i++)
         {
             // Instantiate a RowUI prefab as a child of this object.
-            var row = Instantiate(rowUi, transform).GetComponent<RowUI>();
+            var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
             // Set the number text to the index of the shopping item.
             row.number.text = i.ToString();
             // Set the name text to the name of the shopping item.
