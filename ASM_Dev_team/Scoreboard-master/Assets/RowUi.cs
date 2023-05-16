@@ -1,15 +1,15 @@
-﻿// The 'using' keyword imports the UnityEngine and UnityEngine.UI namespaces
-// so that their classes can be used without the fully-qualified namespace.
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// This line defines a new public class called RowUi, which inherits from MonoBehaviour.
-public class RowUi : MonoBehaviour
+public class RowUI : MonoBehaviour
 {
-    // These three public fields are Text objects that will be used to display
-    // the rank, name, and score of a row in a UI table.
-    public Text rank;
+    // The Text component that will display the number.
+    public Text number; 
+    // The Text component that will display the name.
     public Text name;
-    public Text score;
+    // The Text component that will display the quantity.
+    public Text quantity;
+    
 }
-
