@@ -3,7 +3,10 @@ guid: c0d84911216964a9c9d0548e7c5f1304
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - textAssetData: {fileID: 4900000, guid: ac5b587574a35d041984e5f659da0bcd, type: 3}
+  - rowUi: {instanceID: 0}
+  - shoppingListManager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
