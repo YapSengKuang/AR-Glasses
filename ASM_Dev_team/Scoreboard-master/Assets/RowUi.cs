@@ -8,8 +8,8 @@ public class RowUi : MonoBehaviour
 {
     // These three public fields are Text objects that will be used to display
     // the rank, name, and score of a row in a UI table.
-    public Text rank;
+    public Text number;
     public Text name;
-    public Text score;
+    public Text quantity;
 }
 

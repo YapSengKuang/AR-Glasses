@@ -6,16 +6,16 @@ using System.Collections.Generic;
 // The [Serializable] attribute indicates that instances of this class can be serialized and deserialized.
 
 [Serializable]
-public class ScoreData
+public class ShoppingItemData
 {
     // This public field is a List of Score objects.
-    public List<Score> scores;
+    public List<ShoppingItem> shoppingItems;
 
     // This is the constructor for the ScoreData class.
     // It initializes the 'scores' field as a new empty List of Score objects.
-    public ScoreData()
+    public ShoppingItemData()
     {
-        scores= new List<Score>();
+        shoppingItems= new List<ShoppingItem>();
     }
 }
 

@@ -6,35 +6,35 @@ using UnityEngine;
 using System;
 
 // This line defines a new public class called ScoreUi that inherits from MonoBehaviour.
-public class ScoreUi : MonoBehaviour
+public class ShoppingItemUi : MonoBehaviour
 {
     // These public fields are used to reference a TextAsset object that contains the score data, a ScoreManager object, and a RowUi object.
     public TextAsset textAssetData;
-    public ScoreManager scoreManager;   
+    public ShoppingItemManager shoppingItemManager;   
     public RowUi rowUi;
     
     // These [Serializable] classes are used to deserialize the score data from the TextAsset object.
     [System.Serializable]
-    public class Country
+    public class Item
     {
-        public int rank;
+        public int number;
         public string name;
-        public string score;
+        public string quantity;
     }
     [System.Serializable]
-    public class CountryList
+    public class ShoppingList
     {
-        public Country[] country; 
+        public Item[] item; 
     }
 
     // This public field holds an instance of the CountryList class, which is used to store the score data.
-    public CountryList myCountryList = new CountryList();
+    public ShoppingList myShoppingList = new ShoppingList();
 
     // This method is called when the script instance is being loaded.
     void Start()
     {
         // Load the score data from the TextAsset object.
-        textAssetData = Resources.Load<TextAsset>("MyShoppingLIst");
+        textAssetData = Resources.Load<TextAsset>("MyShoppingList");
 
         // Split the score data into an array of strings using ',' and '\n' as delimiters.
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
@@ -43,33 +43,32 @@ public class ScoreUi : MonoBehaviour
         int tablesize = data.Length / 3 - 1;
 
         // Initialize the Country array in the CountryList with the calculated table size.
-        myCountryList.country = new Country[tablesize];
+        myShoppingList.item = new Item[tablesize];
 
         // Populate the Country array in the CountryList with the score data.
         for (int i = 0; i < tablesize; i++)
         {
             int arrayIndex = 3 * (i + 1);
-            myCountryList.country[i] = new Country();
-            myCountryList.country[i].rank = int.Parse(data[arrayIndex]);
-            myCountryList.country[i].name = data[arrayIndex + 1];
-            myCountryList.country[i].score = data[arrayIndex + 2];
+            myShoppingList.item[i] = new Item();
+            myShoppingList.item[i].number = int.Parse(data[arrayIndex]);
+            myShoppingList.item[i].name = data[arrayIndex + 1];
+            myShoppingList.item[i].quantity = data[arrayIndex + 2];
         }
 
         // Add the score data to the ScoreManager.
         for (int i = 0; i < tablesize; i++)
         {
-            scoreManager.AddScore(new Score(myCountryList.country[i].name, myCountryList.country[i].score));
-            Debug.Log("Hello");
+            shoppingItemManager.AddShoppingItem(new ShoppingItem(myShoppingList.item[i].name, myShoppingList.item[i].quantity));
         }
         
         // Retrieve the high scores from the ScoreManager and display them in the UI.
-        var scores = scoreManager.GetHighScores().ToArray();
-        for (int i = 0; i < scores.Length; i++)
+        var items = shoppingItemManager.GetHighScores().ToArray();
+        for (int i = 0; i < items.Length; i++)
         {
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
-            row.rank.text = (i + 1).ToString();
-            row.name.text = scores[i].name;
-            row.score.text = scores[i].score;
+            row.number.text = (i + 1).ToString();
+            row.name.text = items[i].name;
+            row.quantity.text = items[i].quantity;
         }
     }
 }
