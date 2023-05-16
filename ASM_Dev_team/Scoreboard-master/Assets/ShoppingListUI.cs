@@ -18,6 +18,8 @@ public class ShoppingListUI : MonoBehaviour
     public class ShoppingItem
     {
         // The name of the shopping item.
+        public int number;
+        // The name of the shopping item.
         public string name;
         // The quantity of the shopping item.
         public string quantity;
@@ -43,22 +45,23 @@ public class ShoppingListUI : MonoBehaviour
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
         // Calculate the number of shopping items in the data.
-        int tablesize = data.Length / 2 - 1;
+        int tablesize = data.Length / 3 - 1;
 
         // Initialize the shopping list item array.
         myShoppingList.item = new ShoppingItem[tablesize];
         for (int i = 0; i < tablesize; i++)
-        {
-            int arrayIndex = 2 * (i + 1);
+        {   
+            int arrayIndex = 3 * (i + 1);
             myShoppingList.item[i] = new ShoppingItem();
-            myShoppingList.item[i].name = data[arrayIndex];
-            myShoppingList.item[i].quantity = data[arrayIndex + 1];
+            myShoppingList.item[i].number = int.Parse(data[arrayIndex]);
+            myShoppingList.item[i].name = data[arrayIndex + 1];
+            myShoppingList.item[i].quantity = data[arrayIndex + 2];
         }
 
         // Add each shopping item to the shopping list manager.
         for (int i = 0; i < tablesize; i++)
         {
-            shoppingListManager.addItem(new Item(myShoppingList.item[i].name, myShoppingList.item[i].quantity));
+            shoppingListManager.addItem(new Item(myShoppingList.item[i].number, myShoppingList.item[i].name, myShoppingList.item[i].quantity));
         }
 
         // Retrieve the shopping list from the shopping list manager.

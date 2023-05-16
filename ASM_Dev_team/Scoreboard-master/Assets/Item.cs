@@ -7,6 +7,8 @@ using System;
 public class Item
 {
     // The name of the item.
+    public int number;
+    // The name of the item.
     public string name;
     // The quantity of the item.
     public string quantity;
@@ -16,8 +18,9 @@ public class Item
     /// </summary>
     /// <param name="name">The name of the item.</param>
     /// <param name="quantity">The quantity of the item.</param>
-    public Item(string name, string quantity)
+    public Item(int number, string name, string quantity)
     {
+        this.number = number;
         this.name = name;
         this.quantity = quantity;
     }
