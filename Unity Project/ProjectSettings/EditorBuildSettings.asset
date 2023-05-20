@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Object Detection/Nreal DNN/NrealYoloObjectDetectionExample.unity
+    guid: 76d3b57ad93a6f042b29d1786c2595e4
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Object Detection/LuKarYoloObjectDetection/LuKarYoloObjectDetection.unity
+    guid: cfdb0da36912c411592abb970924f070
   m_configObjects: {}
