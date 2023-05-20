@@ -123,6 +123,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &125672035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125672037}
+  - component: {fileID: 125672036}
+  m_Layer: 0
+  m_Name: CounterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &125672036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125672035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f499ab655fd8e534a9059336ffc98983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logicObject: {fileID: 266260190}
+  totalItemsDisplay: {fileID: 1541004584}
+  ItemsLeftDisplay: {fileID: 1227405475}
+  itemCounter: 0
+  rowUi: {fileID: 4024178575410231233, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
+  rowIter: {fileID: 499007761}
+--- !u!4 &125672037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125672035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 517.8068, y: 327.4494, z: -3.0183322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200709123
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +293,7 @@ GameObject:
   - component: {fileID: 266260191}
   - component: {fileID: 266260190}
   m_Layer: 0
-  m_Name: CounterManager
+  m_Name: ShoppingItemLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,12 +308,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 266260189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82c841164d65e454293171edeb4feb99, type: 3}
+  m_Script: {fileID: 11500000, guid: 701e306c359fa94448ab274fb1dc85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalItemsDisplay: {fileID: 1541004584}
-  itemsLeftDisplay: {fileID: 1227405475}
-  totalItems: 0
+  textAssetData: {fileID: 0}
+  shoppingItemManager: {fileID: 1337417959}
+  itemsLength: 0
+  myShoppingList:
+    item: []
 --- !u!4 &266260191
 Transform:
   m_ObjectHideFlags: 0
@@ -315,7 +367,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 405.33334, y: 100}
+  m_SizeDelta: {x: 528.8702, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &360387527
 MonoBehaviour:
@@ -448,11 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1f536cd24c6b14f8deba8c9caae2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAssetData: {fileID: 0}
-  shoppingItemManager: {fileID: 1337417959}
+  temp: {fileID: 266260190}
   rowUi: {fileID: 4024178575410231233, guid: 1bed995a85f9f6945a8e0c18d76894ff, type: 3}
-  myShoppingList:
-    item: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +825,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 454.33334, y: 100}
+  m_SizeDelta: {x: 265.0434, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1182828911
 MonoBehaviour:
@@ -1378,7 +1427,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -101.85661, y: 37.009415, z: 94.04592, w: -41.49087}
+  m_margin: {x: 1.7550125, y: 52.949654, z: 8.367371, w: -47.468525}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1539,7 +1588,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 395.33334, y: 100}
+  m_SizeDelta: {x: 441.1615, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1869414437
 MonoBehaviour:
@@ -1568,7 +1617,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
