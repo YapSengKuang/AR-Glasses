@@ -11,5 +11,21 @@ public class RowUi : MonoBehaviour
     public Text number;
     public Text name;
     public Text quantity;
+    public Toggle checkbox;
+    public bool tog;
+    
+
+    public void checkBoxFunction()
+    {   
+
+        if(checkbox.isOn)
+        {
+            tog = true;
+        }
+        else if(!checkbox.isOn)
+        {
+            tog= false;
+        }
+    }
 }
 
