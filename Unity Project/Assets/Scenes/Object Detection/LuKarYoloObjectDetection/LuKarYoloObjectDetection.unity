@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1539,6 +1539,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114491031132128258, guid: 67d84a29ffd5ca443ae62b9736795f1b, type: 3}
+      propertyPath: m_DynamicPixelsPerUnit
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 224453369079705500, guid: 67d84a29ffd5ca443ae62b9736795f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1569,11 +1573,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224453369079705500, guid: 67d84a29ffd5ca443ae62b9736795f1b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224453369079705500, guid: 67d84a29ffd5ca443ae62b9736795f1b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224453369079705500, guid: 67d84a29ffd5ca443ae62b9736795f1b, type: 3}
       propertyPath: m_LocalScale.x
