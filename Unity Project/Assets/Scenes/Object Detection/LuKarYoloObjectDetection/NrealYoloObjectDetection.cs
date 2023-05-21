@@ -612,6 +612,11 @@ namespace NrealLightWithOpenCVForUnityExample
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
+        public void OnShoppingButtonListClick()
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
         /// <summary>
         /// Checks if a given integer value exists in the phoneBook array.
         /// </summary>
