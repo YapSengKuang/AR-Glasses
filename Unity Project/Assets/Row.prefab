@@ -185,7 +185,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933688493978189750}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &4024178575410231233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   number: {fileID: 3448064197262975700}
   name: {fileID: 4203313091040069893}
   quantity: {fileID: 5828173749165780872}
-  checkbox: {fileID: 1028766312639574731}
+  checkbox: {fileID: 7267759269948085965}
   tog: 0
 --- !u!1 &2082087713494214751
 GameObject:
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8333655654630138619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
   m_Name: 
