@@ -200,7 +200,7 @@ public class YOLOv7ObjectDetector
                     int classId = (int)cls[0];
 
                     //Debug.Log(classId.ToString());
-                    if(!taken[classId] &&!alreadyDrawn[classId] ){
+                    if(!taken[classId] &&!alreadyDrawn[classId] &&checkClass(classId)){
                         alreadyDrawn[classId]=true;
                         
                         float left = box[0];
@@ -260,7 +260,7 @@ public class YOLOv7ObjectDetector
 
                         int classId = (int)cls[0];
 
-                        //if(checkClass(classId)){
+                        if(checkClass(classId)){
                             string label = String.Format("{0:0.0000}", conf[0]);
                             if (classNames != null && classNames.Count != 0)
                             {
@@ -271,10 +271,10 @@ public class YOLOv7ObjectDetector
                             }
 
                             sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
-                            sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
-                            sb.AppendLine(String.Format("cls: {0:0}", label));
+                            //sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
+                            //sb.AppendLine(String.Format("cls: {0:0}", label));
                             sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
-                       // }
+                       }
                     }
 
                     Debug.Log(sb);
@@ -305,6 +305,11 @@ public class YOLOv7ObjectDetector
                 classIds = null;
                 confidences = null;
                 boxes = null;
+            }
+
+            private bool checkClass(int id){
+                int[] phoneBook = {46,47,49};
+                return Array.Exists(phoneBook, element=>element==id);
             }
 
             protected virtual List<string> readClassNames(string filename)
