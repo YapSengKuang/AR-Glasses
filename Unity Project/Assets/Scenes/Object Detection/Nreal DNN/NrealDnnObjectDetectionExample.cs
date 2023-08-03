@@ -147,9 +147,9 @@ namespace NrealLightWithOpenCVForUnityExample
         Renderer quad_renderer;
         protected int frameCount = 0; 
         
-        private const string awsBucketName = "object-detect-images";
-        private const string awsAccessKey = "AKIA5LYJHTLKZWBV6XCU";
-        private const string awsSecretKey = "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";
+        private const string awsBucketName = "****";
+        private const string awsAccessKey = "****";
+        private const string awsSecretKey = "****";
         AmazonS3Client s3Client = new AmazonS3Client(awsAccessKey, awsSecretKey, RegionEndpoint.APSoutheast2);
 
 
