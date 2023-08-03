@@ -364,6 +364,7 @@ namespace NrealLightWithOpenCVForUnity.UnityUtils.Helper
             }
 
             FlipMat(frameMat, flipVertical, flipHorizontal);
+            
             if (rotatedFrameMat != null)
             {
                 Core.rotate(frameMat, rotatedFrameMat, Core.ROTATE_90_CLOCKWISE);

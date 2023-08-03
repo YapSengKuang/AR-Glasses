@@ -20,7 +20,12 @@ using NrealLightWithOpenCVForUnity.UnityUtils.Helper;
 using NRKernal;
 using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
-
+using UnityEngine.Networking;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace NrealLightWithOpenCVForUnityExample
 {
@@ -127,6 +132,8 @@ namespace NrealLightWithOpenCVForUnityExample
         /// </summary>
         Renderer quad_renderer;
 
+        protected int frameCount = 0; 
+
         //shows every 2nd frame
         bool show;
 
@@ -138,8 +145,9 @@ namespace NrealLightWithOpenCVForUnityExample
         public int showingID2;
         List<string> classNames;
 
-
-
+        private const string awsBucketName = "object-detect-images";
+        private const string awsAccessKey = "AKIA5LYJHTLKZWBV6XCU";
+       // private const string awsSecretKey = "XXXXxxxxxxXXXxxxXXX";
 
 
         // Use this for initialization
@@ -413,7 +421,32 @@ namespace NrealLightWithOpenCVForUnityExample
                 }
                 else
                 {
+                    Texture2D tex = new Texture2D(rgb.cols(), rgb.rows(), TextureFormat.RGBA32, false);
+                    //Utils.matToTexture2D(rgb, tex);
 
+                    // Convert Texture2D to byteArray (encode to PNG format)
+                    byte[] texData = tex.EncodeToPNG();
+
+                    // Create JSON object and add the image data
+                    // var jsonObject = new ImageData();
+
+                    //jsonObject.Columns = rgbMat.cols(); 
+                    //jsonObject.Rows = rgbMat.rows(); 
+                    //jsonObject.DataType = CvType.CV_8UC4; 
+                    //  jsonObject.Data = Convert.ToBase64String(texData);
+
+                    // Convert the JSON object to a string for sending
+                    // string bodyJsonString = JsonUtility.ToJson(jsonObject);
+                    // Debug.Log(jsonString); 
+
+                    // JSON post request
+                    // string url = "http://127.0.0.1:5000/detects"; 
+                    // if (frameCount % 10 == 0) {
+                    //    var postRequest = Post(url, bodyJsonString); 
+                    //    StartCoroutine(postRequest); 
+                    //}
+
+                   
 
                     // Convert the image from RGB to BGR color space
                     Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
@@ -428,7 +461,8 @@ namespace NrealLightWithOpenCVForUnityExample
 
                     // Perform inference using the object detector
                     Mat results = objectDetector.infer(bgrMat);
-                    
+
+                    Console.Write(results);
                     //tm.stop();
                     //Debug.Log("YOLOv7ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
                     
@@ -711,6 +745,23 @@ namespace NrealLightWithOpenCVForUnityExample
 
                 return classNames;
             }
+        
+        /// Post Request 
+        /// https://forum.unity.com/threads/posting-json-through-unitywebrequest.476254/
+        public IEnumerator Post(string url, string bodyJsonString)
+        {
+       
+            var request = new UnityWebRequest(url, "POST");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+            request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            yield return request.SendWebRequest();
+            Debug.Log("Status Code: " + request.responseCode);
+            request.Dispose(); 
+            
+           
+        }
 
 
 

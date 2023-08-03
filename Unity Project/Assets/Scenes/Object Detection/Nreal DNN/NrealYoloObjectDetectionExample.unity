@@ -2132,7 +2132,7 @@ MonoBehaviour:
   inpHeight: 320
   enableFrameSkip: 0
   enableFrameSkipToggle: {fileID: 1635194723}
-  displayCameraImage: 0
+  displayCameraImage: 1
   displayCameraImageToggle: {fileID: 262404331}
 --- !u!1 &1914947018
 GameObject:

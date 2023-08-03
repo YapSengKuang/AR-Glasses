@@ -16,6 +16,19 @@ using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
 using NrealLightWithOpenCVForUnity.UnityUtils.Helper;
 using NRKernal;
+using UnityEngine.Networking;
+using System.Text;
+using Amazon;
+using System.IO;
+using System.Threading.Tasks;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using UnityEngine;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+
 
 namespace NrealLightWithOpenCVForUnityExample
 {
@@ -132,11 +145,18 @@ namespace NrealLightWithOpenCVForUnityExample
         /// The quad renderer.
         /// </summary>
         Renderer quad_renderer;
+        protected int frameCount = 0; 
+        
+        private const string awsBucketName = "object-detect-images";
+        private const string awsAccessKey = "AKIA5LYJHTLKZWBV6XCU";
+        private const string awsSecretKey = "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";
+        AmazonS3Client s3Client = new AmazonS3Client(awsAccessKey, awsSecretKey, RegionEndpoint.APSoutheast2);
 
 
         // Use this for initialization
         protected virtual void Start()
         {
+
             enableFrameSkipToggle.isOn = enableFrameSkip;
             displayCameraImageToggle.isOn = displayCameraImage;
 
@@ -301,6 +321,34 @@ namespace NrealLightWithOpenCVForUnityExample
             }
         }
 
+    async Task UploadToS3Async(byte[] imageFile) 
+{
+    string fileName = "image" + frameCount.ToString(); 
+
+    // Create a PutObjectRequest to upload the file to S3
+    PutObjectRequest request = new PutObjectRequest
+    {
+        BucketName = awsBucketName,
+        Key = fileName,
+        InputStream = new MemoryStream(imageFile) // or use a FileStream if the file is large
+    };
+
+    // Upload the file to S3 asynchronously
+    PutObjectResponse response = await s3Client.PutObjectAsync(request);
+
+    // If needed, you can also retrieve the presigned URL for the uploaded object
+    GetPreSignedUrlRequest presignedUrlRequest = new GetPreSignedUrlRequest
+    {
+        BucketName = awsBucketName,
+        Key = fileName,
+        Expires = DateTime.Now.AddHours(1) // Optional: Set an expiration for the URL
+    };
+
+    string presignedUrl = s3Client.GetPreSignedURL(presignedUrlRequest);
+
+}
+
+
         /// <summary>
         /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
@@ -313,8 +361,10 @@ namespace NrealLightWithOpenCVForUnityExample
         // Update is called once per frame
         protected virtual void Update()
         {
+
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
+                frameCount = frameCount + 1; 
 
                 if (enableFrameSkip && imageOptimizationHelper.IsCurrentFrameSkipped())
                     return;
@@ -336,6 +386,38 @@ namespace NrealLightWithOpenCVForUnityExample
                     Size inpSize = new Size(inpWidth > 0 ? inpWidth : bgrMat.cols(),
                                        inpHeight > 0 ? inpHeight : bgrMat.rows());
                     Mat blob = Dnn.blobFromImage(bgrMat, scale, inpSize, mean, swapRB, false);
+
+                    // Convert blob into a Texture2D
+                    Texture2D tex = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGBA32, false);
+                    Utils.matToTexture2D(rgbMat, tex); // turns everything upside down
+
+                
+                    // Convert Texture2D to byteArray (encode to PNG format)
+                    byte[] texData = tex.EncodeToPNG();
+
+                    // Create JSON object and add the image data
+                    // var jsonObject = new ImageData();
+
+                    //jsonObject.Columns = rgbMat.cols(); 
+                    //jsonObject.Rows = rgbMat.rows(); 
+                    //jsonObject.DataType = CvType.CV_8UC4; 
+                    //jsonObject.Data = Convert.ToBase64String(texData);
+
+                    // Convert the JSON object to a string for sending
+                    //string bodyJsonString = JsonUtility.ToJson(jsonObject);
+                    // Debug.Log(jsonString); 
+
+                    // JSON post request
+                    //string url = "http://127.0.0.1:5000/detects"; 
+                    //if (frameCount % 10 == 0) {
+                    //    var postRequest = Post(url, bodyJsonString); 
+                    //    StartCoroutine(postRequest); 
+                    //}
+
+                    if (frameCount % 20 == 0) {
+                        UploadToS3Async(texData).Wait();
+                    
+                    }
 
 
                     // Run a model.
@@ -514,6 +596,23 @@ namespace NrealLightWithOpenCVForUnityExample
         public void OnDisplayCameraImageToggleValueChanged()
         {
             displayCameraImage = displayCameraImageToggle.isOn;
+
+        }
+        /// Post Request 
+        /// https://forum.unity.com/threads/posting-json-through-unitywebrequest.476254/
+        public IEnumerator Post(string url, string bodyJsonString)
+        {
+       
+            var request = new UnityWebRequest(url, "POST");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+            request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            yield return request.SendWebRequest();
+            Debug.Log("Status Code: " + request.responseCode);
+            request.Dispose(); 
+            
+           
         }
 
         /// <summary>

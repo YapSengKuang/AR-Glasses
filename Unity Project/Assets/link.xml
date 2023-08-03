@@ -1,0 +1,8 @@
+<linker>
+    <assembly fullname="AWSSDK.Core" preserve="all"/>
+    <assembly fullname="AWSSDK.S3" preserve="all"/>
+    <assembly fullname="AWSSDK.APIGateway" preserve="all"/>
+    <assembly fullname="Microsoft.Bcl.AsyncInterfaces" preserve="all"/>
+    <assembly fullname="System.Runtime.CompilerServices.Unsafe" preserve="all"/>
+    <assembly fullname="System.Threading.Tasks.Extensions" preserve="all"/>
+</linker>
