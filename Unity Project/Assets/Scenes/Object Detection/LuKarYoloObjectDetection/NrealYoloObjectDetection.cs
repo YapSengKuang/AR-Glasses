@@ -654,6 +654,7 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
             aConfirmationPopup.messageText.text = message;
+            Debug.Log("657");
    
         }
 
