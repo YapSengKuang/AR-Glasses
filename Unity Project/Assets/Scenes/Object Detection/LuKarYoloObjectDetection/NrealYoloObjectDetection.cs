@@ -20,6 +20,9 @@ using NrealLightWithOpenCVForUnity.UnityUtils.Helper;
 using NRKernal;
 using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 
 namespace NrealLightWithOpenCVForUnityExample
@@ -129,7 +132,7 @@ namespace NrealLightWithOpenCVForUnityExample
 
         //shows every 2nd frame
         bool show;
-
+    
         //Popup stuff...
         [SerializeField] public ConfirmationPopup aConfirmationPopup;
 
@@ -138,6 +141,15 @@ namespace NrealLightWithOpenCVForUnityExample
         public int showingID2;
         List<string> classNames;
 
+        //list stuff...
+        /// <summary>
+        /// shop
+        /// <summary>
+        [SerializeField] public ShoppingUpdater shoppingUI;
+
+        
+
+
 
 
 
@@ -145,6 +157,7 @@ namespace NrealLightWithOpenCVForUnityExample
         // Use this for initialization
         void Start()
         {   
+            UpdateList();
             enableFrameSkipToggle.isOn = enableFrameSkip;
             displayCameraImageToggle.isOn = displayCameraImage;
             // Get references to the required components
@@ -654,9 +667,55 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
             aConfirmationPopup.messageText.text = message;
-            Debug.Log("657");
+            
    
         }
+
+        private void UpdateList(){
+            Debug.Log("675");
+            List<List<string>> csvData = ReadCSVFile("Resources/MyShoppingList.csv");
+            //Debug.Log(csvData);
+
+            string rowData = "";
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var row in csvData)
+            {
+                rowData = String.Join(", ", row);
+                stringBuilder.AppendLine(rowData);
+                
+            }
+            Debug.Log(stringBuilder.ToString());
+            shoppingUI.messageText.text = stringBuilder.ToString();
+        }
+
+        private List<List<string>> ReadCSVFile(string filePath)
+        {
+            List<List<string>> csvData = new List<List<string>>();
+
+            // Get the full path to the CSV file
+            string fullPath = Path.Combine(Application.streamingAssetsPath, filePath);
+            //string fullPath = filePath;
+
+            // Read the CSV file using StreamReader
+            using (StreamReader reader = new StreamReader(fullPath))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    string[] values = line.Split(',');
+
+                    List<string> rowData = new List<string>(values);
+                    csvData.Add(rowData);
+                }
+            }
+
+            return csvData;
+        }
+ 
+
+        
 
         public void ConfirmClicked(){
             aConfirmationPopup.gameObject.SetActive(false);
