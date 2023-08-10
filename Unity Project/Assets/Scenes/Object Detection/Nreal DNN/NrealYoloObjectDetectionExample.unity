@@ -2114,13 +2114,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00e3dd13c5d3e342b8e65354d5983b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: yolov7-tiny.weights
-  config: yolov7-tiny.cfg
-  classes: coco.names
+  model: MobileNetSSD_deploy.caffemodel
+  config: MobileNetSSD_deploy.prototxt
+  classes: 
   classesList: []
   confThreshold: 0.25
   nmsThreshold: 0.45
-  scale: 0.0039
+  scale: 0.0072
   mean:
     val:
     - 0

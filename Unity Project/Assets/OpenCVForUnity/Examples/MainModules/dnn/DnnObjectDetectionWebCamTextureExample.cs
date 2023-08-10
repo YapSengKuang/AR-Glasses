@@ -314,6 +314,7 @@ namespace OpenCVForUnityExample
                     // Run a model.
                     net.setInput(blob);
 
+                    Debug.Log(net.getLayer(new DictValue(0)).outputNameToIndex("im_info"));
                     if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
                     {  // Faster-RCNN or R-FCN
                         Imgproc.resize(bgrMat, bgrMat, inpSize);

@@ -37,10 +37,10 @@ namespace NrealLightWithOpenCVForUnityExample
         [HeaderAttribute("YOLO")]
         
         [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
-        public string model = "yolov7-tiny.weights";
+        public string model = "frozen_inference_graph.pb";
 
         [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
-        public string config = "yolov7-tiny.cfg";
+        public string config = "mscoco_label_map.pbtxt";
 
         [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
         public string classes = "coco.names";

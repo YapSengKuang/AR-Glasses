@@ -337,12 +337,18 @@ namespace NrealLightWithOpenCVForUnityExample
                                        inpHeight > 0 ? inpHeight : bgrMat.rows());
                     Mat blob = Dnn.blobFromImage(bgrMat, scale, inpSize, mean, swapRB, false);
 
+                    
+
 
                     // Run a model.
                     net.setInput(blob);
 
+                    
+                    
                     if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
+                
                     {  // Faster-RCNN or R-FCN
+                        Debug.Log(net.getLayer(new DictValue(0)).outputNameToIndex("im_info")); 
                         Imgproc.resize(bgrMat, bgrMat, inpSize);
                         Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
                         imInfo.put(0, 0, new float[] {
@@ -357,12 +363,13 @@ namespace NrealLightWithOpenCVForUnityExample
                     //tm.start();
 
                     List<Mat> outs = new List<Mat>();
+
                     net.forward(outs, outBlobNames);
 
                     //tm.stop();
                     //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
 
-                    postprocess(rgbMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
+                     postprocess(rgbMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
 
                     for (int i = 0; i < outs.Count; i++)
                     {

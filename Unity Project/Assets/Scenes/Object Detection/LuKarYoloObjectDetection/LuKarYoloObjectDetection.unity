@@ -1967,7 +1967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _downscaleRatio: 1
-  _frameSkippingRatio: 4
+  _frameSkippingRatio: 1
 --- !u!1001 &1618911840
 PrefabInstance:
   m_ObjectHideFlags: 0
