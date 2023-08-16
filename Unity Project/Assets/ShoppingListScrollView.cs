@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using TMPro;
+using Debug = UnityEngine.Debug;
 
 public class ShoppingListScrollView : MonoBehaviour
 {
     public GameObject itemPrefab;
     public Transform contentParent;
+    public TextMeshProUGUI textComponent;
+    public int itemsLeft = 0;
 
     private List<ShoppingItem> shoppingItems = new List<ShoppingItem>();
 
@@ -15,6 +19,11 @@ public class ShoppingListScrollView : MonoBehaviour
     {
         LoadShoppingItemsFromCSV();
         PopulateScrollView();
+    }
+
+    private void DisplayItemsLeft()
+    {
+        textComponent.text = "Items Left: " + itemsLeft;
     }
 
     private void LoadShoppingItemsFromCSV()
@@ -65,7 +74,9 @@ public class ShoppingListScrollView : MonoBehaviour
             quantityText.text = item.quantity;
 
             toggle.onValueChanged.AddListener(newValue => OnToggleValueChanged(item, newItem, newValue));
+            itemsLeft += 1;
         }
+        DisplayItemsLeft();
     }
 
     private void OnToggleValueChanged(ShoppingItem item, GameObject itemObject, bool newValue)
@@ -77,11 +88,13 @@ public class ShoppingListScrollView : MonoBehaviour
         {
             //item.name = "Checked: " + item.name;
             //item.quantity = "0";
+            itemsLeft -= 1;
         }
         else
         {
             //item.name = item.name.Replace("Checked: ", "");
             //item.quantity = "1"; 
+            itemsLeft += 1;
         }
 
         // Update the UI text
@@ -90,6 +103,7 @@ public class ShoppingListScrollView : MonoBehaviour
 
         // Move the item to the bottom of the list
         itemObject.transform.SetAsLastSibling();
+        DisplayItemsLeft();
     }
 }
 
