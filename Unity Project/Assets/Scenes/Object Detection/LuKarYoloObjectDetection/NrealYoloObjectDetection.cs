@@ -255,8 +255,6 @@ namespace NrealLightWithOpenCVForUnityExample
                 // Create an instance of the YOLOv7ObjectDetector using the provided file paths
                 objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
                 classNames = readClassNames(classes_filepath);
-                //Debug.Log("2222222222222222222222222");
-                //Debug.Log(classNames);
             }
 
             // Check if a test input image is provided
@@ -610,11 +608,6 @@ namespace NrealLightWithOpenCVForUnityExample
         public void OnChangeCameraButtonClick()
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
-        }
-
-        public void OnShoppingButtonListClick()
-        {
-            SceneManager.LoadScene("SampleScene");
         }
 
         /// <summary>
