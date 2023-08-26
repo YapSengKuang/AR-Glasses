@@ -86,23 +86,24 @@ public class ShoppingListScrollView : MonoBehaviour
 
         if (newValue)
         {
-            //item.name = "Checked: " + item.name;
-            //item.quantity = "0";
             itemsLeft -= 1;
+
+            nameText.text = item.name;
+            quantityText.text = item.quantity;
+
+            itemObject.transform.SetAsLastSibling(); // Move the item to the bottom of the list
         }
         else
         {
-            //item.name = item.name.Replace("Checked: ", "");
-            //item.quantity = "1"; 
             itemsLeft += 1;
+            
+            nameText.text = item.name;
+            quantityText.text = item.quantity;
+
+            itemObject.transform.SetAsFirstSibling();   // Move the item to the top of the list
+
         }
 
-        // Update the UI text
-        nameText.text = item.name;
-        quantityText.text = item.quantity;
-
-        // Move the item to the bottom of the list
-        itemObject.transform.SetAsLastSibling();
         DisplayItemsLeft();
     }
 }
