@@ -41,7 +41,7 @@ public class ShoppingListScrollView : MonoBehaviour
         Text buttonText = toggleButton.GetComponentInChildren<Text>();
         if(!scrollViewEnabled)
         {
-            buttonText.text = "Display Items";
+            buttonText.text = "My Shopping List";
         }
         else
         {
