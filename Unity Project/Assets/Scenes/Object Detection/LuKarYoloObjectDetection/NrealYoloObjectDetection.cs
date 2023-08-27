@@ -452,7 +452,7 @@ namespace NrealLightWithOpenCVForUnityExample
                     }
                     
                     if(!showing && showingID2!=-1){
-                        OpenConfirmaitonWindow(classNames[showingID2]);
+                        OpenConfirmationWindow(classNames[showingID2]);
                         showingID = showingID2;
                     }
 
@@ -648,7 +648,7 @@ namespace NrealLightWithOpenCVForUnityExample
             displayCameraImage = displayCameraImageToggle.isOn;
         }
 
-        private void OpenConfirmaitonWindow(string message){
+        private void OpenConfirmationWindow(string message){
             showing=true;
             aConfirmationPopup.gameObject.SetActive(true);
             aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
