@@ -144,7 +144,6 @@ public class ShoppingListScrollView : MonoBehaviour
 
             if(itemName.text == "banana")
             {
-                OnToggleValueChanged(row, true);
                 toggle.isOn= true;
             }
         }        
