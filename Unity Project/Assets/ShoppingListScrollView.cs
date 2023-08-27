@@ -10,20 +10,43 @@ public class ShoppingListScrollView : MonoBehaviour
 {
     public GameObject itemPrefab;
     public Transform contentParent;
-    public TextMeshProUGUI textComponent;
-    public int itemsLeft = 0;
-
+    //public Text textComponent;
+    private int itemsLeft = 0;
+    public Button toggleButton;
+    public GameObject headerPanel;
+    public ScrollRect scrollView;
+    private bool scrollViewEnabled = false;
+    private bool headerPanelEnabled = false;
+    
     private List<ShoppingItem> shoppingItems = new List<ShoppingItem>();
 
     private void Start()
     {
         LoadShoppingItemsFromCSV();
         PopulateScrollView();
+        toggleButton.onClick.AddListener(ToggleScrollView);
+    }
+
+    private void ToggleScrollView()
+    {   
+        scrollViewEnabled = !scrollViewEnabled;
+        headerPanelEnabled = !headerPanelEnabled;
+        scrollView.gameObject.SetActive(scrollViewEnabled);
+        headerPanel.gameObject.SetActive(headerPanelEnabled);
+        DisplayItemsLeft();
     }
 
     private void DisplayItemsLeft()
-    {
-        textComponent.text = "Items Left: " + itemsLeft;
+    {   
+        Text buttonText = toggleButton.GetComponentInChildren<Text>();
+        if(!scrollViewEnabled)
+        {
+            buttonText.text = "Display Items";
+        }
+        else
+        {
+            buttonText.text = "Items left:" + itemsLeft;
+        }
     }
 
     private void LoadShoppingItemsFromCSV()
