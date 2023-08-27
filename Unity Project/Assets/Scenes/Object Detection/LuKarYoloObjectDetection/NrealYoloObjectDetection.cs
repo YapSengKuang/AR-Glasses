@@ -655,9 +655,7 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.gameObject.SetActive(true);
             aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
-            aConfirmationPopup.messageText.text = message;
-            //scrollViewInstance.itemMatching(message);
-
+            aConfirmationPopup.messageText.text = message + " has been identified! Is the identified item correct?";
         }
 
         public void ConfirmClicked(){
