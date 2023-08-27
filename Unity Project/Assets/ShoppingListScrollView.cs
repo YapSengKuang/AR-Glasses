@@ -12,7 +12,8 @@ public class ShoppingListScrollView : MonoBehaviour
     public Transform contentParent;
     //public Text textComponent;
     private int itemsLeft = 0;
-    public Button toggleButton;
+    public Button shoppingListButton;
+    public Button backButton;
     public GameObject headerPanel;
     public ScrollRect scrollView;
     private bool scrollViewEnabled = false;
@@ -24,21 +25,33 @@ public class ShoppingListScrollView : MonoBehaviour
     {
         LoadShoppingItemsFromCSV();
         PopulateScrollView();
-        toggleButton.onClick.AddListener(ToggleScrollView);
+        shoppingListButton.onClick.AddListener(ToggleScrollView);
+        backButton.onClick.AddListener(ToggleBackButton);
     }
 
     private void ToggleScrollView()
     {   
-        scrollViewEnabled = !scrollViewEnabled;
-        headerPanelEnabled = !headerPanelEnabled;
+        backButton.gameObject.SetActive(true);
+        scrollViewEnabled = true;
+        headerPanelEnabled = true;
         scrollView.gameObject.SetActive(scrollViewEnabled);
         headerPanel.gameObject.SetActive(headerPanelEnabled);
         DisplayItemsLeft();
     }
 
+    private void ToggleBackButton()
+    {
+        scrollViewEnabled = false;
+        headerPanelEnabled = false;
+        scrollView.gameObject.SetActive(scrollViewEnabled);
+        headerPanel.gameObject.SetActive(headerPanelEnabled);
+        backButton.gameObject.SetActive(false);
+        DisplayItemsLeft();
+    }
+
     private void DisplayItemsLeft()
     {   
-        Text buttonText = toggleButton.GetComponentInChildren<Text>();
+        Text buttonText = shoppingListButton.GetComponentInChildren<Text>();
         if(!scrollViewEnabled)
         {
             buttonText.text = "My Shopping List";
