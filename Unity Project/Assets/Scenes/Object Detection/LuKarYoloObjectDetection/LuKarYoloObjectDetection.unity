@@ -685,7 +685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 76, y: 28}
+  m_AnchoredPosition: {x: 13, y: 46}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &455735397
@@ -700,8 +700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0317ff4ef5d38e6419143c2260d84117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confirmButton: {fileID: 0}
-  noButton: {fileID: 0}
+  confirmButton: {fileID: 1582245131}
+  noButton: {fileID: 817584813}
   messageText: {fileID: 1293620633}
 --- !u!114 &455735398
 MonoBehaviour:
@@ -1605,7 +1605,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 817584808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1615,7 +1615,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1625,9 +1625,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 8d695a72af5a56343942e4f10d6a8a37, type: 3}
+    m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 21300000, guid: 8d695a72af5a56343942e4f10d6a8a37, type: 3}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1637,13 +1637,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 817584811}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
 --- !u!1 &846990862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,10 +3421,11 @@ MonoBehaviour:
   enableFrameSkipToggle: {fileID: 1890160469}
   displayCameraImage: 1
   displayCameraImageToggle: {fileID: 2020960552}
-  aConfirmationPopup: {fileID: 1691116605}
+  aConfirmationPopup: {fileID: 455735397}
   showing: 0
   showingID: 0
   showingID2: 0
+  scrollViewInstance: {fileID: 1180385276}
 --- !u!114 &1482244283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3605,7 +3602,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1582245126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -3615,7 +3612,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3625,9 +3622,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 1ba287abfbd38ec43ae31da613bae89f, type: 3}
+    m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 21300000, guid: 1ba287abfbd38ec43ae31da613bae89f, type: 3}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3637,13 +3634,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1582245129}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
 --- !u!1001 &1618911840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4009,7 +4002,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1702569321}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
