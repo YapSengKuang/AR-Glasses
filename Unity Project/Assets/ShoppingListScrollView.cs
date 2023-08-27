@@ -18,6 +18,8 @@ public class ShoppingListScrollView : MonoBehaviour
     public ScrollRect scrollView;
     private bool scrollViewEnabled = false;
     private bool headerPanelEnabled = false;
+
+    private List<GameObject> rows = new List<GameObject>();
     
     private List<ShoppingItem> shoppingItems = new List<ShoppingItem>();
 
@@ -109,38 +111,43 @@ public class ShoppingListScrollView : MonoBehaviour
             nameText.text = item.name;
             quantityText.text = item.quantity;
 
-            toggle.onValueChanged.AddListener(newValue => OnToggleValueChanged(item, newItem, newValue));
+            rows.Add(newItem);
+
+            toggle.onValueChanged.AddListener(newValue => OnToggleValueChanged(newItem, newValue));
             itemsLeft += 1;
         }
         DisplayItemsLeft();
     }
 
-    private void OnToggleValueChanged(ShoppingItem item, GameObject itemObject, bool newValue)
+    private void OnToggleValueChanged(GameObject itemObject, bool newValue)
     {
-        Text nameText = itemObject.transform.Find("Item").GetComponent<Text>();
-        Text quantityText = itemObject.transform.Find("Quantity").GetComponent<Text>();
-
         if (newValue)
         {
             itemsLeft -= 1;
-
-            nameText.text = item.name;
-            quantityText.text = item.quantity;
-
             itemObject.transform.SetAsLastSibling(); // Move the item to the bottom of the list
         }
         else
         {
             itemsLeft += 1;
-            
-            nameText.text = item.name;
-            quantityText.text = item.quantity;
-
             itemObject.transform.SetAsFirstSibling();   // Move the item to the top of the list
-
         }
 
         DisplayItemsLeft();
+    }
+
+    public void itemMatching()
+    {   
+        foreach (GameObject row in rows)
+        {
+            Text itemName = row.transform.Find("Item").GetComponent<Text>();
+            Toggle toggle = row.transform.Find("Toggle").GetComponent<Toggle>();
+
+            if(itemName.text == "banana")
+            {
+                OnToggleValueChanged(row, true);
+                toggle.isOn= true;
+            }
+        }        
     }
 }
 

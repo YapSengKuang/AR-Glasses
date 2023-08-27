@@ -138,6 +138,8 @@ namespace NrealLightWithOpenCVForUnityExample
         public int showingID2;
         List<string> classNames;
 
+        public ShoppingListScrollView scrollViewInstance;
+
 
 
 
@@ -654,7 +656,8 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
             aConfirmationPopup.messageText.text = message;
-   
+            //scrollViewInstance.itemMatching(message);
+
         }
 
         public void ConfirmClicked(){
@@ -662,6 +665,7 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
 
+            scrollViewInstance.itemMatching();
             objectDetector.showing(showingID);
             showing=false;
         }
