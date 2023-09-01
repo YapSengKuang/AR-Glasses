@@ -13,9 +13,10 @@ FIT3170 Full Year project for AR Shopping List glasses
 
 ## How the Application Runs
 ### Getting the shopping list on the glasses
-**Step 1 - creating the shopping list**
+**Step 1 - Creating the Shopping List**
+
 The application accesses a .csv file to manage your shopping list.
-You can make this using excel and creating a 3 columns labelled "No.", "Item", "Quantity" Like this:
+You can make this using excel and creating a 3 columns labelled "No.", "Item", "Quantity" like this:
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147008473641537536/image.png)
 
@@ -25,29 +26,30 @@ alternatively you can use a text editor and use commas "," to separate the colum
 
 Ensure that the file is called MyShoppingList.csv
 
-**Step 2 - putting the shopping list on the glasses**
+**Step 2 - Putting the Shopping List on the Glasses**
+
 First turn on the computing unit and connect it to your computer via a cable.
 Then copy your shopping list over to the "LukAR" folder in internal storage.
-When you're done it should look like this
+When you're done it should look like this:
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147021578916343900/image.png)
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147021632053969016/image.png)
 
-Afterwards you can disconnect your computing unit from your computer
+Afterwards you can disconnect your computing unit from your computer.
 
 ### How to use LukAR
 When you open the application you will see "My Shopping List" to your left.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147023132067102840/image.png)
 
-You can click it with the pointer to expandup your shoppinglist 
+You can click it with the pointer to expand up your shopping list.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147023034398543973/image.png)
 
 Once open you can minimise it by clicking the "X"
 Note: if you do not see your list then check that your .csv file has been correctly placed.
 
-This shopping list will update whenever you confirm an item. But you can manually change this by pressing the checkbox to the right
+This shopping list will update whenever you confirm an item. But you can manually change this by pressing the checkbox to the right.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147023283938672740/image.png)
 
@@ -55,18 +57,21 @@ When an item is checked, it will automatically be moved to the bottom of the sho
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147023360077856820/image.png)
 
-LukAR will automatically detect items on your shopping list and will point out a single instance of that item to you
+LukAR will automatically detect items on your shopping list and will point out a single instance of that item to you.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147023835007307907/image.png)
 
-To collect that item, pick it up and move it close to the glasses, upon doing so you will see a confirmation popup
+To collect that item, pick it up and move it close to the glasses, upon doing so you will see a confirmation popup.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147024012459909140/image.png)
 
-Use the pointer to click "yes" to mark it off the list or "no" if LukAR identified something wrong
+Use the pointer to click "yes" to mark it off the list or "no" if LukAR identified something wrong.
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147024133402673242/image.png)
 
 
 ## Additional Notes
-- 
+- The scene for our application is in Assets > Scenes > Object Detection > LukarYoloObjectDetection > LukarYoloObjectDetection.unity. Press play to run it on Unity. 
+- To use the pointer on Unity to test the application - which emulates the pointer from the computing unit of the glasses - you must continuously hold down the shift key and then move your cursor.
+  
+  
