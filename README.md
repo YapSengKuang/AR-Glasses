@@ -5,6 +5,7 @@ FIT3170 Full Year project for AR Shopping List glasses
 - Unity: Development platform for creating the AR Application. 
 - Android Studio: Integrated development environment (IDE) for Android app development and testing.
 - XReal (Nreal) SDK : Software development kit for creating applications for the XReal (Nreal) AR Glasses.
+- Unity: TextMeshPro package for components containing textmeshpro text box.
 
 ## Hardware required
 - Android Device : Can be used for testing 
@@ -73,5 +74,6 @@ Use the pointer to click "yes" to mark it off the list or "no" if LukAR identifi
 ## Additional Notes
 - The scene for our application is in Assets > Scenes > Object Detection > LukarYoloObjectDetection > LukarYoloObjectDetection.unity. Press play to run it on Unity. 
 - To use the pointer on Unity to test the application - which emulates the pointer from the computing unit of the glasses - you must continuously hold down the shift key and then move your cursor.
+- For any scroll functions while game is active in unity, hold shift and drag mouse to use the scroll bar.
   
   
