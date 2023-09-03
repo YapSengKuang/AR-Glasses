@@ -54,7 +54,6 @@ TextureImporter:
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -121,7 +120,6 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-
     internalID: 0
     vertices: []
     indices: 
