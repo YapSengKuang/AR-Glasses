@@ -137,6 +137,7 @@ namespace NrealLightWithOpenCVForUnityExample
         public int showingID;
         public int showingID2;
         List<string> classNames;
+        private string storedMessage;
 
         public ShoppingListScrollView scrollViewInstance;
 
@@ -413,8 +414,6 @@ namespace NrealLightWithOpenCVForUnityExample
                 }
                 else
                 {
-
-
                     // Convert the image from RGB to BGR color space
                     Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
 
@@ -446,9 +445,6 @@ namespace NrealLightWithOpenCVForUnityExample
                     }
                     else{
                         showingID2 = objectDetector.visualize(rgbMat, results, false, true); //rgbmat
-
-                        
-
                         // Convert the RGB image with visualized results to a Texture2D
                         Utils.matToTexture2D(rgbMat, texture);
                     }
@@ -651,19 +647,22 @@ namespace NrealLightWithOpenCVForUnityExample
         }
 
         private void OpenConfirmationWindow(string message){
-            showing=true;
-            aConfirmationPopup.gameObject.SetActive(true);
-            aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
-            aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
-            aConfirmationPopup.messageText.text = message + " has been identified! Is the identified item correct?";
+            if (scrollViewInstance.checkItemList(message))
+            {
+                showing=true;
+                storedMessage = message;
+                aConfirmationPopup.gameObject.SetActive(true);
+                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+                aConfirmationPopup.messageText.text = message + " has been identified! Is the identified item correct?";
+            }
         }
 
         public void ConfirmClicked(){
             aConfirmationPopup.gameObject.SetActive(false);
             aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
-
-            scrollViewInstance.itemMatching();
+            scrollViewInstance.itemMatching(storedMessage);
             objectDetector.showing(showingID);
             showing=false;
         }
@@ -672,9 +671,7 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.gameObject.SetActive(false);
             aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
-
             showing=false;
-
         }
 
         protected virtual List<string> readClassNames(string filename)

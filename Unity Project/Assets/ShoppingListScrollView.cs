@@ -8,19 +8,19 @@ using Debug = UnityEngine.Debug;
 
 public class ShoppingListScrollView : MonoBehaviour
 {
+    private Dictionary<string, GameObject> itemRows = new Dictionary<string, GameObject>();
     public GameObject itemPrefab;
     public Transform contentParent;
     //public Text textComponent;
     private int itemsLeft = 0;
     public Button shoppingListButton;
+    public Text shoppingListButtonText;
     public Button backButton;
     public GameObject headerPanel;
     public ScrollRect scrollView;
     private bool scrollViewEnabled = false;
     private bool headerPanelEnabled = false;
 
-    private List<GameObject> rows = new List<GameObject>();
-    
     private List<ShoppingItem> shoppingItems = new List<ShoppingItem>();
 
     private void Start()
@@ -53,14 +53,14 @@ public class ShoppingListScrollView : MonoBehaviour
 
     private void DisplayItemsLeft()
     {   
-        Text buttonText = shoppingListButton.GetComponentInChildren<Text>();
+        
         if(!scrollViewEnabled)
         {
-            buttonText.text = "My Shopping List";
+            shoppingListButtonText.text = "My Shopping List";
         }
         else
         {
-            buttonText.text = "Items left:" + itemsLeft;
+            shoppingListButtonText.text = "Items left:" + itemsLeft;
         }
     }
 
@@ -107,14 +107,13 @@ public class ShoppingListScrollView : MonoBehaviour
             Text nameText = newItem.transform.Find("Item").GetComponent<Text>();
             Text quantityText = newItem.transform.Find("Quantity").GetComponent<Text>();
             Toggle toggle = newItem.transform.Find("Toggle").GetComponent<Toggle>();
-
+    
             nameText.text = item.name;
             quantityText.text = item.quantity;
 
-            rows.Add(newItem);
-
             toggle.onValueChanged.AddListener(newValue => OnToggleValueChanged(newItem, newValue));
             itemsLeft += 1;
+            itemRows[item.name] = newItem;
         }
         DisplayItemsLeft();
     }
@@ -124,29 +123,33 @@ public class ShoppingListScrollView : MonoBehaviour
         if (newValue)
         {
             itemsLeft -= 1;
+            itemObject.transform.GetComponentInChildren<Toggle>().isOn = true;
             itemObject.transform.SetAsLastSibling(); // Move the item to the bottom of the list
         }
         else
         {
             itemsLeft += 1;
+            itemObject.transform.GetComponentInChildren<Toggle>().isOn = false;
             itemObject.transform.SetAsFirstSibling();   // Move the item to the top of the list
         }
 
         DisplayItemsLeft();
     }
 
-    public void itemMatching()
-    {   
-        foreach (GameObject row in rows)
+    public void itemMatching(string identifiedItemName)
+    {
+        // Get the row prefab corresponding to the detected item.
+        GameObject rowToUpdate = itemRows[identifiedItemName];
+        OnToggleValueChanged(rowToUpdate, true);
+    }
+    
+    public bool checkItemList(string identifiedItemName)
+    {
+        if (itemRows.ContainsKey(identifiedItemName))
         {
-            Text itemName = row.transform.Find("Item").GetComponent<Text>();
-            Toggle toggle = row.transform.Find("Toggle").GetComponent<Toggle>();
-
-            if(itemName.text == "banana")
-            {
-                toggle.isOn= true;
-            }
-        }        
+            return true;
+        }
+        return false;
     }
 }
 
