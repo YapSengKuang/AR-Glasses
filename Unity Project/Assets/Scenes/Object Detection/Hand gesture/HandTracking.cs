@@ -20,7 +20,7 @@ public class HandTracking : MonoBehaviour
         //remove the square bracket. The first element in the string for one character
         data = data.Remove(0, 1);
         data = data.Remove(data.Length-1, 1);       // removing for the last character 
-        //print(data);
+        print(data);
         string[] points = data.Split(',');          // split the data base on comma
 
         //0        1*3      2*3

@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32144243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 321, y: 179.77, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 71397339}
   - component: {fileID: 71397338}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Point (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 485817423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71c0e0c12a9ad0147bd4dde8aa1d2071, type: 3}
+  m_Script: {fileID: 11500000, guid: beb9f731c2b687e4f8f67dd4c297aff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   udpReceive: {fileID: 485817424}
