@@ -31,6 +31,7 @@ public class ShoppingListScrollView : MonoBehaviour
         backButton.onClick.AddListener(ToggleBackButton);
     }
 
+    
     private void ToggleScrollView()
     {   
         backButton.gameObject.SetActive(true);
@@ -39,6 +40,7 @@ public class ShoppingListScrollView : MonoBehaviour
         scrollView.gameObject.SetActive(scrollViewEnabled);
         headerPanel.gameObject.SetActive(headerPanelEnabled);
         DisplayItemsLeft();
+        shoppingListButton.interactable = false;
     }
 
     private void ToggleBackButton()
@@ -49,6 +51,7 @@ public class ShoppingListScrollView : MonoBehaviour
         headerPanel.gameObject.SetActive(headerPanelEnabled);
         backButton.gameObject.SetActive(false);
         DisplayItemsLeft();
+        shoppingListButton.interactable = true;
     }
 
     private void DisplayItemsLeft()
