@@ -65,7 +65,7 @@ public class ShoppingListScrollView : MonoBehaviour
     }
 
     private void LoadShoppingItemsFromCSV()
-    {
+    {   
         TextAsset csvFile = Resources.Load<TextAsset>("MyShoppingList");
 
         if (csvFile != null)
@@ -76,15 +76,16 @@ public class ShoppingListScrollView : MonoBehaviour
             {
                 string[] fields = line.Split(',');
 
-                if (fields.Length >= 3)
+                if (fields.Length >= 4)
                 {
                     int itemNumber;
                     string itemName = fields[1]; // Item name is at index 1
                     string itemQuantity = fields[2]; // Quantity is at index 2
+                    string itemStatus = fields[3];
 
                     if (int.TryParse(fields[0], out itemNumber))
                     {
-                        shoppingItems.Add(new ShoppingItem(itemNumber, itemName, itemQuantity));
+                        shoppingItems.Add(new ShoppingItem(itemNumber, itemName, itemQuantity, itemStatus));
                     }
                     else
                     {
@@ -114,6 +115,15 @@ public class ShoppingListScrollView : MonoBehaviour
             toggle.onValueChanged.AddListener(newValue => OnToggleValueChanged(newItem, newValue));
             itemsLeft += 1;
             itemRows[item.name] = newItem;
+        }
+
+        foreach (ShoppingItem item in shoppingItems)
+        {
+            if (!item.status.Contains("unchecked"))
+            {
+                itemMatching(item.name);
+                checkItemList(item.name);
+            }
         }
         DisplayItemsLeft();
     }
@@ -159,11 +169,14 @@ public class ShoppingItem
     public int number;
     public string name;
     public string quantity;
+    public string status;
 
-    public ShoppingItem(int _number ,string _name, string _quantity)
+    public ShoppingItem(int _number, string _name, string _quantity, string _status)
     {
         name = _name;
         quantity = _quantity;
         number = _number;
+        status = _status;
+        
     }
 }
