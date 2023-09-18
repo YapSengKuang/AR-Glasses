@@ -1,7 +1,6 @@
 No.,Item,Quantity
-1,banana,1
-2,Bread,1 Loaf
-3,Milk,2 litres
-4,Nutella,1
-5,Eggs,1 Dozen
-
+1,banana,1,checked
+2,Bread,1 Loaf,unchecked
+3,Milk,2 litres,checked
+4,Nutella,1,unchecked
+5,Eggs,1 Dozen,unchecked
