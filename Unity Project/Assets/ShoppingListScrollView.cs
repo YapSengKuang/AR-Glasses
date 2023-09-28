@@ -81,7 +81,8 @@ public class ShoppingListScrollView : MonoBehaviour
                     int itemNumber;
                     string itemName = fields[1]; // Item name is at index 1
                     string itemQuantity = fields[2]; // Quantity is at index 2
-                    string itemStatus = fields[3];
+                    bool itemStatus;
+                    bool.TryParse(fields[3], out itemStatus);
 
                     if (int.TryParse(fields[0], out itemNumber))
                     {
@@ -119,7 +120,7 @@ public class ShoppingListScrollView : MonoBehaviour
 
         foreach (ShoppingItem item in shoppingItems)
         {
-            if (!item.status.Contains("unchecked"))
+            if (item.status)
             {
                 itemMatching(item.name);
                 checkItemList(item.name);
@@ -169,9 +170,9 @@ public class ShoppingItem
     public int number;
     public string name;
     public string quantity;
-    public string status;
+    public bool status;
 
-    public ShoppingItem(int _number, string _name, string _quantity, string _status)
+    public ShoppingItem(int _number, string _name, string _quantity, bool _status)
     {
         name = _name;
         quantity = _quantity;
