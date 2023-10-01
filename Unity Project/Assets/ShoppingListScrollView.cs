@@ -6,6 +6,10 @@ using System.IO;
 using TMPro;
 using Debug = UnityEngine.Debug;
 
+using System;
+using System.Linq;
+using System.Text;
+
 public class ShoppingListScrollView : MonoBehaviour
 {
     private Dictionary<string, GameObject> itemRows = new Dictionary<string, GameObject>();
@@ -101,6 +105,21 @@ public class ShoppingListScrollView : MonoBehaviour
         }
     }
 
+    private void updateCSV(string itemName)
+    {
+        string filepath = @"Assets\Resources\MyShoppingList.csv";
+        StreamWriter writer = new StreamWriter(filepath, false);
+        writer.WriteLine("No.,Item,Quantity,Checked");
+        foreach (ShoppingItem item in shoppingItems)
+        {
+            
+            writer.WriteLine(item.number.ToString() + "," + item.name + "," + item.quantity + "," + item.status.ToString());
+            
+        }
+        writer.Flush();
+        writer.Close();
+    }
+
     private void PopulateScrollView()
     {
         foreach (ShoppingItem item in shoppingItems)
@@ -123,7 +142,6 @@ public class ShoppingListScrollView : MonoBehaviour
             if (item.status)
             {
                 itemMatching(item.name);
-                checkItemList(item.name);
             }
         }
         DisplayItemsLeft();
@@ -136,12 +154,14 @@ public class ShoppingListScrollView : MonoBehaviour
             itemsLeft -= 1;
             itemObject.transform.GetComponentInChildren<Toggle>().isOn = true;
             itemObject.transform.SetAsLastSibling(); // Move the item to the bottom of the list
+            
         }
         else
         {
             itemsLeft += 1;
             itemObject.transform.GetComponentInChildren<Toggle>().isOn = false;
             itemObject.transform.SetAsFirstSibling();   // Move the item to the top of the list
+            
         }
 
         DisplayItemsLeft();
@@ -152,6 +172,7 @@ public class ShoppingListScrollView : MonoBehaviour
         // Get the row prefab corresponding to the detected item.
         GameObject rowToUpdate = itemRows[identifiedItemName];
         OnToggleValueChanged(rowToUpdate, true);
+        updateCSV(identifiedItemName);
     }
     
     public bool checkItemList(string identifiedItemName)
