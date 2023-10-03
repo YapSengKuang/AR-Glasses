@@ -112,9 +112,15 @@ public class ShoppingListScrollView : MonoBehaviour
         writer.WriteLine("No.,Item,Quantity,Checked");
         foreach (ShoppingItem item in shoppingItems)
         {
-            
-            writer.WriteLine(item.number.ToString() + "," + item.name + "," + item.quantity + "," + item.status.ToString());
-            
+            if(itemName.Equals(item.name))
+            {   
+                item.status = !item.status;
+                writer.WriteLine(item.number.ToString() + "," + item.name + "," + item.quantity + "," + item.status.ToString());
+            }
+            else
+            {
+                writer.WriteLine(item.number.ToString() + "," + item.name + "," + item.quantity + "," + item.status.ToString());
+            }
         }
         writer.Flush();
         writer.Close();
@@ -154,14 +160,13 @@ public class ShoppingListScrollView : MonoBehaviour
             itemsLeft -= 1;
             itemObject.transform.GetComponentInChildren<Toggle>().isOn = true;
             itemObject.transform.SetAsLastSibling(); // Move the item to the bottom of the list
-            
+            updateCSV(itemObject.name);
         }
         else
         {
             itemsLeft += 1;
             itemObject.transform.GetComponentInChildren<Toggle>().isOn = false;
             itemObject.transform.SetAsFirstSibling();   // Move the item to the top of the list
-            
         }
 
         DisplayItemsLeft();
@@ -172,7 +177,6 @@ public class ShoppingListScrollView : MonoBehaviour
         // Get the row prefab corresponding to the detected item.
         GameObject rowToUpdate = itemRows[identifiedItemName];
         OnToggleValueChanged(rowToUpdate, true);
-        updateCSV(identifiedItemName);
     }
     
     public bool checkItemList(string identifiedItemName)
