@@ -9,3 +9,4 @@ User guide
 1.Using unity to open this project
 2.Ensuing camera is connected, and you need to execute the python script(Asset/scene/object detection/ hand gesture/ fingerdetection/main) externally.
 3.Click play button in unity
+
