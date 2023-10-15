@@ -37,10 +37,10 @@ namespace NrealLightWithOpenCVForUnityExample
         [HeaderAttribute("YOLO")]
         
         [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
-        public string model = "frozen_inference_graph.pb";
+        public string model = "yolov7-tiny.weights";
 
         [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
-        public string config = "mscoco_label_map.pbtxt";
+        public string config = "yolov7-tiny.cfg";
 
         [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
         public string classes = "coco.names";
@@ -132,11 +132,16 @@ namespace NrealLightWithOpenCVForUnityExample
 
         //Popup stuff...
         [SerializeField] public ConfirmationPopup aConfirmationPopup;
+        
+        //[SerializeField] public FunnyText someText;
 
         public bool showing = false; //Is a popup showing
         public int showingID;
         public int showingID2;
         List<string> classNames;
+        private string storedMessage;
+
+        public ShoppingListScrollView scrollViewInstance;
 
 
 
@@ -145,6 +150,9 @@ namespace NrealLightWithOpenCVForUnityExample
         // Use this for initialization
         void Start()
         {   
+            Utils.setDebugMode(true);
+            //someText.messageText.text = "HELLO";
+
             enableFrameSkipToggle.isOn = enableFrameSkip;
             displayCameraImageToggle.isOn = displayCameraImage;
             // Get references to the required components
@@ -186,7 +194,17 @@ namespace NrealLightWithOpenCVForUnityExample
             }
             
             // Run the application
-            Run();
+            try 
+            {
+                Run();
+            //  Block of code to try
+            }
+            catch (Exception e)
+            {
+            //  Block of code to handle errors
+                //someText.messageText.text = someText.messageText.text + e.ToString();
+
+            }
 #endif
         }
 
@@ -235,7 +253,18 @@ namespace NrealLightWithOpenCVForUnityExample
             getFilePath_Coroutine = null;
 
             // Run the application
-            Run();
+            try 
+            {
+                Run();
+            //  Block of code to try
+            }
+            catch (Exception e)
+            {
+            //  Block of code to handle errors
+                //someText.messageText.text = e.ToString();
+
+            }
+            
         }
 #endif
 
@@ -249,14 +278,13 @@ namespace NrealLightWithOpenCVForUnityExample
             if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
             {
                 Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded.");
+                //someText.messageText.text = someText.messageText.text + "LLLLIK";
             }
             else
             {
                 // Create an instance of the YOLOv7ObjectDetector using the provided file paths
                 objectDetector = new YOLOv7ObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold/*, topK*/);
                 classNames = readClassNames(classes_filepath);
-                //Debug.Log("2222222222222222222222222");
-                //Debug.Log(classNames);
             }
 
             // Check if a test input image is provided
@@ -413,8 +441,6 @@ namespace NrealLightWithOpenCVForUnityExample
                 }
                 else
                 {
-
-
                     // Convert the image from RGB to BGR color space
                     Imgproc.cvtColor(rgb, bgrMat, Imgproc.COLOR_RGB2BGR); //converting image from rgb to bgr 
 
@@ -446,15 +472,12 @@ namespace NrealLightWithOpenCVForUnityExample
                     }
                     else{
                         showingID2 = objectDetector.visualize(rgbMat, results, false, true); //rgbmat
-
-                        
-
                         // Convert the RGB image with visualized results to a Texture2D
                         Utils.matToTexture2D(rgbMat, texture);
                     }
                     
                     if(!showing && showingID2!=-1){
-                        OpenConfirmaitonWindow(classNames[showingID2]);
+                        OpenConfirmationWindow(classNames[showingID2]);
                         showingID = showingID2;
                     }
 
@@ -612,11 +635,6 @@ namespace NrealLightWithOpenCVForUnityExample
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
-        public void OnShoppingButtonListClick()
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-
         /// <summary>
         /// Checks if a given integer value exists in the phoneBook array.
         /// </summary>
@@ -655,20 +673,23 @@ namespace NrealLightWithOpenCVForUnityExample
             displayCameraImage = displayCameraImageToggle.isOn;
         }
 
-        private void OpenConfirmaitonWindow(string message){
-            showing=true;
-            aConfirmationPopup.gameObject.SetActive(true);
-            aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
-            aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
-            aConfirmationPopup.messageText.text = message;
-   
+        private void OpenConfirmationWindow(string message){
+            if (scrollViewInstance.checkItemList(message))
+            {
+                showing=true;
+                storedMessage = message;
+                aConfirmationPopup.gameObject.SetActive(true);
+                aConfirmationPopup.confirmButton.onClick.AddListener(ConfirmClicked);
+                aConfirmationPopup.noButton.onClick.AddListener(NoClicked);
+                aConfirmationPopup.messageText.text = message.ToUpper() + " has been identified! Is the identified item correct?";
+            }
         }
 
         public void ConfirmClicked(){
             aConfirmationPopup.gameObject.SetActive(false);
             aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
-
+            scrollViewInstance.itemMatching(storedMessage);
             objectDetector.showing(showingID);
             showing=false;
         }
@@ -677,9 +698,7 @@ namespace NrealLightWithOpenCVForUnityExample
             aConfirmationPopup.gameObject.SetActive(false);
             aConfirmationPopup.confirmButton.onClick.RemoveListener(ConfirmClicked);
             aConfirmationPopup.noButton.onClick.RemoveListener(NoClicked);
-
             showing=false;
-
         }
 
         protected virtual List<string> readClassNames(string filename)
@@ -701,6 +720,7 @@ namespace NrealLightWithOpenCVForUnityExample
                 catch (System.Exception ex)
                 {
                     Debug.LogError(ex.Message);
+                    //someText.messageText.text = someText.messageText.text + "NMOOO";
                     return null;
                 }
                 finally

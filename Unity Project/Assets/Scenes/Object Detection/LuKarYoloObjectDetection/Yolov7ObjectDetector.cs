@@ -308,7 +308,7 @@ public class YOLOv7ObjectDetector
             }
 
             private bool checkClass(int id){
-                int[] phoneBook = {46,47,49};
+                int[] phoneBook = {46,47,49,50,51};
                 return Array.Exists(phoneBook, element=>element==id);
             }
 
