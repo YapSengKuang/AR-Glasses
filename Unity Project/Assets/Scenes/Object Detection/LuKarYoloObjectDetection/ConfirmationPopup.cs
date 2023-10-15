@@ -8,6 +8,6 @@ public class ConfirmationPopup : MonoBehaviour
 {
     public Button confirmButton;
     public Button noButton;
-    public TextMeshProUGUI messageText;
+    public Text messageText;
 
 }

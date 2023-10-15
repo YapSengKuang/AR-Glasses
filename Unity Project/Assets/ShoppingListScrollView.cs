@@ -142,7 +142,8 @@ public class ShoppingListScrollView : MonoBehaviour
     public void itemMatching(string identifiedItemName)
     {
         // Get the row prefab corresponding to the detected item.
-        GameObject rowToUpdate = itemRows[identifiedItemName];
+        GameObject rowToUpdate = itemRows[identifiedItemName.ToUpper()];
+        itemsLeft +=1; 
         OnToggleValueChanged(rowToUpdate, true);
     }
     
