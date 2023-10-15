@@ -10,3 +10,5 @@ User guide
 2.Ensuing camera is connected, and you need to execute the python script(Asset/scene/object detection/ hand gesture/ fingerdetection/main) externally.
 3.Click play button in unity
 
+Unit test
+White box testing has implemented, though the functionality has not fully implemented. But code coverage is 100% due to the fact that the unit test has execute 100% of code.
