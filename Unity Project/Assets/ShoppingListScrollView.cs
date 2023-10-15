@@ -63,7 +63,7 @@ public class ShoppingListScrollView : MonoBehaviour
         }
         else
         {
-            shoppingListButtonText.text = "Items left:" + itemsLeft;
+            shoppingListButtonText.text = "Items Left:  " + itemsLeft;
         }
     }
 
