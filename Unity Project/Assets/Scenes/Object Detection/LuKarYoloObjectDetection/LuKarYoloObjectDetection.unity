@@ -738,7 +738,7 @@ GameObject:
   - component: {fileID: 455735398}
   - component: {fileID: 455735397}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: boxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -766,7 +766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 46}
+  m_AnchoredPosition: {x: 26, y: -96}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &455735397
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmButton: {fileID: 1582245131}
   noButton: {fileID: 817584813}
-  messageText: {fileID: 0}
+  messageText: {fileID: 1927370884}
 --- !u!114 &455735398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1745,7 +1745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -504, y: 249}
+  m_AnchoredPosition: {x: -316, y: 228}
   m_SizeDelta: {x: 193.3, y: 40.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846990864
@@ -3492,7 +3492,7 @@ MonoBehaviour:
   showing: 0
   showingID: 0
   showingID2: 0
-  scrollViewInstance: {fileID: 0}
+  scrollViewInstance: {fileID: 1180385276}
 --- !u!114 &1482244283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4472,7 +4472,7 @@ GameObject:
   - component: {fileID: 1927370885}
   - component: {fileID: 1927370884}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Texty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

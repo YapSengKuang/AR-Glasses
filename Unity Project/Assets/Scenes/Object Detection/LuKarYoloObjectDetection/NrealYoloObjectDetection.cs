@@ -150,7 +150,7 @@ namespace NrealLightWithOpenCVForUnityExample
         // Use this for initialization
         void Start()
         {   
-            Utils.setDebugMode(true);
+            
             //someText.messageText.text = "HELLO";
 
             enableFrameSkipToggle.isOn = enableFrameSkip;
@@ -674,6 +674,7 @@ namespace NrealLightWithOpenCVForUnityExample
         }
 
         private void OpenConfirmationWindow(string message){
+            Debug.Log(message);
             if (scrollViewInstance.checkItemList(message))
             {
                 showing=true;

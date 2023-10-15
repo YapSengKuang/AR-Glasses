@@ -105,7 +105,8 @@ public class ShoppingListScrollView : MonoBehaviour
     private void PopulateScrollView()
     {
         foreach (ShoppingItem item in shoppingItems)
-        {
+        {   
+            
             GameObject newItem = Instantiate(itemPrefab, contentParent);
             Text nameText = newItem.transform.Find("Item").GetComponent<Text>();
             Text quantityText = newItem.transform.Find("Quantity").GetComponent<Text>();
@@ -148,11 +149,14 @@ public class ShoppingListScrollView : MonoBehaviour
     }
     
     public bool checkItemList(string identifiedItemName)
-    {
+    {   Debug.Log("HEY");
+        Debug.Log(identifiedItemName);
         if (itemRows.ContainsKey(identifiedItemName.ToUpper()))
         {
+            Debug.Log("YES");
             return true;
         }
+        Debug.Log("NO");
         return false;
     }
 }
