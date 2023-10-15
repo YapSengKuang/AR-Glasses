@@ -1,7 +1,8 @@
 import unittest
 import cv2
 from cvzone.HandTrackingModule import HandDetector
-from your_module import process_image  # Import your code that contains the main logic
+import socket
+from main import process_image 
 
 class TestHandDetection(unittest.TestCase):
     def setUp(self):
