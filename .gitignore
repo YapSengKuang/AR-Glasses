@@ -17,7 +17,7 @@ sysinfo.txt
 
 /Unity\ Project/Logs/
 
-/Spikes/
+Spikes/
 *.cache
 *.editorconfig
 ###
