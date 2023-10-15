@@ -148,7 +148,7 @@ public class ShoppingListScrollView : MonoBehaviour
     
     public bool checkItemList(string identifiedItemName)
     {
-        if (itemRows.ContainsKey(identifiedItemName))
+        if (itemRows.ContainsKey(identifiedItemName.ToUpper()))
         {
             return true;
         }
