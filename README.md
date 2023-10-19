@@ -1,6 +1,12 @@
 # AR-Glasses
 FIT3170 Full Year project for AR Shopping List glasses
 
+## Versioning Strategy
+- Initial (Current) version: v1.0 
+- As a proof of concept which has no plans to be deployed currently and is intended primarily for internal testing and experimentation, a simple sequential versioning strategy would be the best choice.
+- We increment the version number each time we make updates to the POC. Therefore, the next version of the POC after the initial version will be v1.1.
+- If there is a significant update or change with the POC, then it can be incremented by the whole number. For example, a significant new feature added to the current prototype will change the versioning to v2.0.
+
 ## Software required
 - Unity: Development platform for creating the AR Application. 
 - Android Studio: Integrated development environment (IDE) for Android app development and testing.
