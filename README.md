@@ -70,6 +70,47 @@ Use the pointer to click "yes" to mark it off the list or "no" if LukAR identifi
 
 ![image](https://cdn.discordapp.com/attachments/1080552633812664441/1147024133402673242/image.png)
 
+## Pull Request Strategy
+
+If you're interested in contributing, please follow our Pull Request Strategy outlined below.
+
+### Pre-Requisites:
+
+1. **Fork the Repository**: Before you can create a pull request, you must first fork our repository. This will create a personal copy of the codebase for you to work on.
+
+2. **Clone Your Forked Repository**: Clone the forked repo to your local machine:
+   ```bash
+   git clone https://github.com/YourUsername/project-name.git
+    ```
+3. **Set Upstream**: Add our repository as an upstream to fetch changes from the main codebase:
+    ```bash
+    git remote add upstream https://github.com/OriginalRepoOwner/project-name.git
+    ```
+### Steps to Submit a Pull Request:
+1. **Stay Updated**: Before you start working, make sure you have the latest changes from our main branch:
+    ```bash
+    git pull upstream main
+    ```
+2. **Create a New Branch**: Always create a new branch for every feature or bugfix:
+    ```bash
+    git checkout -b feature/your-feature-name OR bugfix/your-bugfix-name
+    ```
+3. **Work on Your Change**: Make your changes, ensuring you follow our coding standards and guidelines.
+4. **Commit Your Changes**: Group related changes into logical commits and write a clear and meaningful commit message.
+    ```bash
+    git commit -m "Short description of changes made"
+    ```
+5. **Push to Your Fork**: Push your changes to your forked repo on GitHub:
+    ```bash
+    git push origin your-branch-name
+    ```
+6. **Create a Pull Request**: Go to your forked repo on GitHub and click on 'New Pull Request'. Select your branch from the dropdown and submit.
+
+7. **Fill in Pull Request Details**: Provide a descriptive title and fill in the Pull Request template, detailing your changes and any other relevant information.
+
+8. **Review and Address Feedback**: Once your Pull Request is submitted, maintainers or other contributors might provide feedback. Address any comments or suggestions as needed.
+9. **Approval of Merge**: Once everything is set and the Pull Request is approved, it will be merged into our main branch.
+
 
 ## Additional Notes
 - The scene for our application is in Assets > Scenes > Object Detection > LukarYoloObjectDetection > LukarYoloObjectDetection.unity. Press play to run it on Unity. 
