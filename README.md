@@ -18,6 +18,12 @@ FIT3170 Full Year project for AR Shopping List glasses
 - XReal (Nreal) AR Development Glasses : Primary hardware to run our AR Shopping List, application is only able to run on the development kit. 
 - Windows/Mac Computer: A computer capable of running Unity. 
 
+## Running the application on windows or mac
+- Open unity
+- Select open project -> add project from disk
+- Locate the folder from your desktop and select the entire folder
+- Run the application on unity
+
 ## How the Application Runs
 ### Getting the shopping list on the glasses
 **Step 1 - Creating the Shopping List**
