@@ -1,5 +1,5 @@
 # AR-Glasses
-FIT3170 Full Year project for AR Shopping List glasses with Mulong Xie [lINK TEXT](https://au.linkedin.com/in/mulongxie/en) as our client from CSIRO
+FIT3170 Full Year project for AR Shopping List glasses with [Mulong Xie](https://au.linkedin.com/in/mulongxie/en) as our client from CSIRO
 
 ## Versioning Strategy
 - Initial (Current) version: v1.0 
